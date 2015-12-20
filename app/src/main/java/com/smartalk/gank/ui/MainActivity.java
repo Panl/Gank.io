@@ -1,4 +1,4 @@
-package com.smartalk.gank;
+package com.smartalk.gank.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,11 +9,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-import rx.Observable;
+import com.smartalk.gank.R;
+import com.smartalk.gank.http.PanFactory;
+import com.smartalk.gank.model.MeiziData;
+
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,27 +37,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Observable.just("Hello world!")
-                .map(new Func1<String, String>() {
-                    @Override
-                    public String call(String s) {
-                        return s + ",panl";
-                    }
-                })
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String s) {
-                        Log.i("Gank", s);
-                    }
-                });
-
-        Observable.just(1, 2, 3, 4, 5)
-                .subscribeOn(Schedulers.io())
+        PanFactory.getGankRetrofitInstance().getMeiziData(1)
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Integer>() {
+                .subscribe(new Subscriber<MeiziData>() {
                     @Override
-                    public void call(Integer integer) {
-                        Log.i("Gank", "num-->"+integer);
+                    public void onCompleted() {
+                        Toast.makeText(MainActivity.this,"onCompleted",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("Error",e.toString());
+                        Toast.makeText(MainActivity.this,"onError",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(MeiziData meiziData) {
+                        Toast.makeText(MainActivity.this,"OnNext",Toast.LENGTH_SHORT).show();
+                        Log.i("Meizi",meiziData.toString());
                     }
                 });
     }
