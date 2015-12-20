@@ -11,7 +11,7 @@ import retrofit.RxJavaCallAdapterFactory;
  * contact panlei106@gmail.com
  * Created by panl on 15/12/20.
  */
-public class PanFactory {
+public class PanClient {
     public static final String HOST = "http://gank.avosapps.com/api/";
     private static GankRetrofit gankRetrofit;
     protected static final Object monitor = new Object();
