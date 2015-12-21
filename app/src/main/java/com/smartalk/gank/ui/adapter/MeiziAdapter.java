@@ -18,6 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
+ * 显示妹子的Adapter
  * Created by panl on 15/12/20.
  */
 public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder> {
@@ -60,9 +61,12 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
         @Bind(R.id.tv_who)
         TextView tvWho;
 
+        View card;
+
         public MeiziHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            card = itemView;
+            ButterKnife.bind(this, itemView);
         }
     }
 }

@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="270dp"
-    android:orientation="vertical">
-    <ImageView
-        android:id="@+id/iv_meizi"
+    android:layout_margin="3dp"
+    card_view:cardCornerRadius="3dp">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:src="@mipmap/meizi"
-        android:scaleType="centerCrop"
-        android:contentDescription="meizi"/>
-    <TextView
-        android:id="@+id/tv_who"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="\@daimajia"
-        android:textSize="20sp"
-        android:textColor="#fff"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"/>
-</RelativeLayout>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_meizi"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:contentDescription="meizi"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/meizi" />
+
+        <TextView
+            android:id="@+id/tv_who"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:text="\@daimajia"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
