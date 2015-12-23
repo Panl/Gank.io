@@ -7,30 +7,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.smartalk.gank.R;
-import com.smartalk.gank.http.PanClient;
-import com.smartalk.gank.model.MeiziData;
 import com.smartalk.gank.model.entity.Meizi;
+import com.smartalk.gank.presenter.MainPresenter;
 import com.smartalk.gank.ui.adapter.MeiziAdapter;
+import com.smartalk.gank.view.IMainView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class MainActivity extends AppCompatActivity implements
+        SwipeRefreshLayout.OnRefreshListener , IMainView{
 
     List<Meizi> meiziList = new ArrayList<>();
     MeiziAdapter adapter;
+    MainPresenter presenter;
+
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.rv_gank)
@@ -45,41 +44,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        adapter = new MeiziAdapter(this,meiziList);
-        rvGank.setLayoutManager(new LinearLayoutManager(this));
-        rvGank.setAdapter(adapter);
-        swipeRefreshLayout.setColorSchemeResources(R.color.yellow,R.color.red,R.color.blue);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
-
-        PanClient.getGankRetrofitInstance().getMeiziData(1)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<MeiziData>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i("Error", e.toString());
-                        Toast.makeText(MainActivity.this, "onError", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onNext(MeiziData meiziData) {
-                        if (swipeRefreshLayout.isRefreshing())
-                            swipeRefreshLayout.setRefreshing(false);
-                        meiziList.addAll(meiziData.results);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+        presenter = new MainPresenter(this);
+        presenter.fetchMeiziData();
     }
 
     @Override
@@ -122,5 +88,38 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 }
             }
         }).start();
+    }
+
+    @Override
+    public void initMainView() {
+        setSupportActionBar(toolbar);
+        swipeRefreshLayout.setColorSchemeResources(R.color.yellow,R.color.red,R.color.blue);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+    }
+
+    @Override
+    public void showProgress() {
+        if (!swipeRefreshLayout.isRefreshing())
+            swipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void hideProgress() {
+        if (swipeRefreshLayout.isRefreshing())
+            swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showMeiziList(List<Meizi> meiziList) {
+        this.meiziList.addAll(meiziList);
+        adapter = new MeiziAdapter(this,this.meiziList);
+        rvGank.setLayoutManager(new LinearLayoutManager(this));
+        rvGank.setAdapter(adapter);
     }
 }
