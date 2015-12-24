@@ -3,7 +3,6 @@ package com.smartalk.gank.ui.activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,21 +13,22 @@ import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.MainPresenter;
 import com.smartalk.gank.ui.adapter.MeiziAdapter;
+import com.smartalk.gank.ui.base.BaseActivity;
 import com.smartalk.gank.view.IMainView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements
-        SwipeRefreshLayout.OnRefreshListener , IMainView{
+public class MainActivity extends BaseActivity implements
+        SwipeRefreshLayout.OnRefreshListener , IMainView,MeiziAdapter.TouchMeiziListener{
 
-    List<Meizi> meiziList = new ArrayList<>();
-    MeiziAdapter adapter;
-    MainPresenter presenter;
-
+    private List<Meizi> meizis;
+    private MeiziAdapter adapter;
+    private MainPresenter presenter;
+    private int page = 1;
+    private boolean isRefresh = true;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        presenter = new MainPresenter(this);
-        presenter.fetchMeiziData();
+        presenter = new MainPresenter(this,this);
+        presenter.fetchMeiziData(page);
     }
 
     @Override
@@ -72,22 +72,9 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onRefresh() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        isRefresh = true;
+        page = 1;
+        presenter.fetchMeiziData(page);
     }
 
     @Override
@@ -99,6 +86,27 @@ public class MainActivity extends AppCompatActivity implements
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+        rvGank.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            boolean isSlidingToBottom;
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                isSlidingToBottom = dy > 0;
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                    int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
+                    int totalItemCount = layoutManager.getItemCount();
+                    if (lastVisibleItem == (totalItemCount-1) && isSlidingToBottom){
+                        page++;
+                        presenter.fetchMeiziData(page);
+                    }
+                }
             }
         });
     }
@@ -116,10 +124,33 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void showErrorView() {
+
+    }
+
+    @Override
     public void showMeiziList(List<Meizi> meiziList) {
-        this.meiziList.addAll(meiziList);
-        adapter = new MeiziAdapter(this,this.meiziList);
-        rvGank.setLayoutManager(new LinearLayoutManager(this));
-        rvGank.setAdapter(adapter);
+        if (isRefresh){
+            if (meizis == null){
+                meizis = meiziList;
+                adapter = new MeiziAdapter(this,meizis);
+                adapter.setListener(this);
+                rvGank.setLayoutManager(new LinearLayoutManager(this));
+                rvGank.setAdapter(adapter);
+            }else {
+                meizis.clear();
+                meizis.addAll(meiziList);
+                adapter.notifyDataSetChanged();
+            }
+            isRefresh = false;
+        }else {
+            meizis.addAll(meiziList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onMeiziClick() {
+        //startActivity(new Intent(MainActivity.this,GankActivity.class));
     }
 }

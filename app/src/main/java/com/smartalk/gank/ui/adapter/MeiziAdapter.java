@@ -1,6 +1,7 @@
 package com.smartalk.gank.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,13 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Meizi;
+import com.smartalk.gank.ui.activity.GankActivity;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 显示妹子的Adapter
@@ -25,6 +28,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
 
     List<Meizi> list;
     Context context;
+    TouchMeiziListener listener;
 
 
     public MeiziAdapter(Context context, List<Meizi> list) {
@@ -45,7 +49,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
                 .load(meizi.url)
                 .centerCrop()
                 .into(holder.ivMeizi);
-        holder.tvWho.setText("@" + meizi.who);
+        holder.tvWho.setText(meizi.desc + " @" + meizi.who);
     }
 
     @Override
@@ -61,6 +65,14 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
         @Bind(R.id.tv_who)
         TextView tvWho;
 
+        @OnClick(R.id.iv_meizi)
+        void itemClick() {
+            if (listener != null){
+                context.startActivity(new Intent(context, GankActivity.class));
+                listener.onMeiziClick();
+            }
+        }
+
         View card;
 
         public MeiziHolder(View itemView) {
@@ -68,5 +80,13 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
             card = itemView;
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public void setListener(TouchMeiziListener listener) {
+        this.listener = listener;
+    }
+
+    public interface TouchMeiziListener {
+        void onMeiziClick();
     }
 }

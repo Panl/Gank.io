@@ -1,5 +1,7 @@
 package com.smartalk.gank.presenter;
 
+import android.content.Context;
+
 import com.smartalk.gank.http.PanClient;
 import com.smartalk.gank.model.MeiziData;
 import com.smartalk.gank.view.IMainView;
@@ -12,17 +14,16 @@ import rx.schedulers.Schedulers;
  * 主界面presenter
  * Created by panl on 15/12/24.
  */
-public class MainPresenter {
-    IMainView mainView;
+public class MainPresenter extends BasePresenter<IMainView>{
 
-    public MainPresenter(IMainView mainView) {
-        this.mainView = mainView;
-        mainView.initMainView();
+    public MainPresenter(Context context, IMainView iView) {
+        super(context, iView);
+        iView.initMainView();
     }
 
-    public void fetchMeiziData(){
-        mainView.showProgress();
-        PanClient.getGankRetrofitInstance().getMeiziData(1)
+    public void fetchMeiziData(int page){
+        iView.showProgress();
+        PanClient.getGankRetrofitInstance().getMeiziData(page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<MeiziData>() {
@@ -33,15 +34,17 @@ public class MainPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        mainView.hideProgress();
+                        iView.hideProgress();
                     }
 
                     @Override
                     public void onNext(MeiziData meiziData) {
-                        mainView.showMeiziList(meiziData.results);
-                        mainView.hideProgress();
+                        iView.showMeiziList(meiziData.results);
+                        iView.hideProgress();
                     }
                 });
 
     }
+
+
 }
