@@ -34,6 +34,7 @@ public class MainPresenter extends BasePresenter<IMainView>{
 
                     @Override
                     public void onError(Throwable e) {
+                        iView.showErrorView();
                         iView.hideProgress();
                     }
 

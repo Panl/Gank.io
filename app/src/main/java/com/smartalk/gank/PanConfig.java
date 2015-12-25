@@ -6,4 +6,8 @@ package com.smartalk.gank;
  */
 public class PanConfig {
     public static final int MEIZI_SIZE = 20;
+
+
+
+    public static final String MEIZI= "meizi";
 }

@@ -16,13 +16,14 @@ import com.smartalk.gank.ui.adapter.MeiziAdapter;
 import com.smartalk.gank.ui.base.BaseActivity;
 import com.smartalk.gank.view.IMainView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements
-        SwipeRefreshLayout.OnRefreshListener , IMainView,MeiziAdapter.TouchMeiziListener{
+        SwipeRefreshLayout.OnRefreshListener, IMainView, MeiziAdapter.TouchMeiziListener {
 
     private List<Meizi> meizis;
     private MeiziAdapter adapter;
@@ -32,8 +33,8 @@ public class MainActivity extends BaseActivity implements
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.rv_gank)
-    RecyclerView rvGank;
+    @Bind(R.id.rv_meizi)
+    RecyclerView rvMeizi;
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.fab)
@@ -44,7 +45,7 @@ public class MainActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        presenter = new MainPresenter(this,this);
+        presenter = new MainPresenter(this, this);
         presenter.fetchMeiziData(page);
     }
 
@@ -80,7 +81,12 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void initMainView() {
         setSupportActionBar(toolbar);
-        swipeRefreshLayout.setColorSchemeResources(R.color.yellow,R.color.red,R.color.blue);
+        meizis = new ArrayList<>();
+        adapter = new MeiziAdapter(this, meizis);
+        adapter.setListener(this);
+        rvMeizi.setLayoutManager(new LinearLayoutManager(this));
+        rvMeizi.setAdapter(adapter);
+        swipeRefreshLayout.setColorSchemeResources(R.color.yellow, R.color.red, R.color.blue);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
             @Override
@@ -88,7 +94,7 @@ public class MainActivity extends BaseActivity implements
                 swipeRefreshLayout.setRefreshing(true);
             }
         });
-        rvGank.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        rvMeizi.addOnScrollListener(new RecyclerView.OnScrollListener() {
             boolean isSlidingToBottom;
 
             @Override
@@ -99,10 +105,10 @@ public class MainActivity extends BaseActivity implements
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
                     int totalItemCount = layoutManager.getItemCount();
-                    if (lastVisibleItem == (totalItemCount-1) && isSlidingToBottom){
+                    if (lastVisibleItem == (totalItemCount - 1) && isSlidingToBottom) {
                         page++;
                         presenter.fetchMeiziData(page);
                     }
@@ -130,20 +136,12 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void showMeiziList(List<Meizi> meiziList) {
-        if (isRefresh){
-            if (meizis == null){
-                meizis = meiziList;
-                adapter = new MeiziAdapter(this,meizis);
-                adapter.setListener(this);
-                rvGank.setLayoutManager(new LinearLayoutManager(this));
-                rvGank.setAdapter(adapter);
-            }else {
-                meizis.clear();
-                meizis.addAll(meiziList);
-                adapter.notifyDataSetChanged();
-            }
+        if (isRefresh) {
+            meizis.clear();
+            meizis.addAll(meiziList);
+            adapter.notifyDataSetChanged();
             isRefresh = false;
-        }else {
+        } else {
             meizis.addAll(meiziList);
             adapter.notifyDataSetChanged();
         }
