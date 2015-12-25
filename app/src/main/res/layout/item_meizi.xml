@@ -16,7 +16,7 @@
             android:layout_height="250dp"
             android:contentDescription="meizi"
             android:scaleType="centerCrop"
-            android:src="@mipmap/meizi" />
+            />
 
         <TextView
             android:id="@+id/tv_who"
@@ -24,10 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
-            android:text="12.6 \@daimajia"
+            android:layout_margin="8dp"
             android:textColor="#fff"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </RelativeLayout>
 

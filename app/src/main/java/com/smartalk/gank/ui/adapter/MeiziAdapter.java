@@ -1,5 +1,6 @@
 package com.smartalk.gank.ui.adapter;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +15,14 @@ import com.smartalk.gank.PanConfig;
 import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.ui.activity.GankActivity;
+import com.smartalk.gank.utils.DateUtil;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 显示妹子的Adapter
@@ -28,8 +32,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
 
     List<Meizi> list;
     Context context;
-    TouchMeiziListener listener;
-
+    int lastPosition = 0;
 
     public MeiziAdapter(Context context, List<Meizi> list) {
         this.list = list;
@@ -45,22 +48,13 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
     @Override
     public void onBindViewHolder(MeiziHolder holder, int position) {
         final Meizi meizi = list.get(position);
+        holder.card.setTag(meizi);
         Glide.with(context)
                 .load(meizi.url)
                 .centerCrop()
                 .into(holder.ivMeizi);
-        holder.tvWho.setText(meizi.desc + " @" + meizi.who);
-        holder.ivMeizi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    if (listener != null){
-                        Intent intent = new Intent(context, GankActivity.class);
-                        intent.putExtra(PanConfig.MEIZI,meizi);
-                        context.startActivity(intent);
-                        listener.onMeiziClick();
-                    }
-                }
-        });
+        holder.tvWho.setText(DateUtil.toDateString(meizi.publishedAt) + " @" + meizi.who);
+        showItemAnimation(holder,position);
     }
 
     @Override
@@ -69,12 +63,28 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
     }
 
 
+    private void showItemAnimation(MeiziHolder holder,int position){
+        if (position > lastPosition){
+            lastPosition = position;
+            ObjectAnimator.ofFloat(holder.card,"translationY",1f*holder.card.getHeight(),0f)
+                    .setDuration(500)
+                    .start();
+        }
+    }
+
     class MeiziHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.iv_meizi)
         ImageView ivMeizi;
         @Bind(R.id.tv_who)
         TextView tvWho;
+
+        @OnClick(R.id.iv_meizi)
+        void meiziClick() {
+            Intent intent = new Intent(context, GankActivity.class);
+            intent.putExtra(PanConfig.MEIZI, (Serializable) card.getTag());
+            context.startActivity(intent);
+        }
 
         View card;
 
@@ -83,13 +93,5 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
             card = itemView;
             ButterKnife.bind(this, itemView);
         }
-    }
-
-    public void setListener(TouchMeiziListener listener) {
-        this.listener = listener;
-    }
-
-    public interface TouchMeiziListener {
-        void onMeiziClick();
     }
 }

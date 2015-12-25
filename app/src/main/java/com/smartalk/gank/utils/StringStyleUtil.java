@@ -13,10 +13,10 @@ import com.smartalk.gank.model.entity.Gank;
  */
 public class StringStyleUtil {
     public static SpannableString getGankStyleStr(Gank gank){
-        String gankStr = gank.desc + " （@" + gank.who + ")";
+        String gankStr = gank.desc + " @" + gank.who;
         SpannableString spannableString = new SpannableString(gankStr);
-        spannableString.setSpan(new RelativeSizeSpan(0.8f),gank.desc.length(),gankStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        spannableString.setSpan(new ForegroundColorSpan(Color.GRAY),gank.desc.length(),gankStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new RelativeSizeSpan(0.8f),gank.desc.length()+1,gankStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Color.GRAY),gank.desc.length()+1,gankStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
 }

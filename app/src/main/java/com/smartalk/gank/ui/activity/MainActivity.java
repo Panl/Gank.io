@@ -23,7 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements
-        SwipeRefreshLayout.OnRefreshListener, IMainView, MeiziAdapter.TouchMeiziListener {
+        SwipeRefreshLayout.OnRefreshListener, IMainView{
 
     private List<Meizi> meizis;
     private MeiziAdapter adapter;
@@ -83,7 +83,6 @@ public class MainActivity extends BaseActivity implements
         setSupportActionBar(toolbar);
         meizis = new ArrayList<>();
         adapter = new MeiziAdapter(this, meizis);
-        adapter.setListener(this);
         rvMeizi.setLayoutManager(new LinearLayoutManager(this));
         rvMeizi.setAdapter(adapter);
         swipeRefreshLayout.setColorSchemeResources(R.color.yellow, R.color.red, R.color.blue);
@@ -147,8 +146,4 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    @Override
-    public void onMeiziClick() {
-        //startActivity(new Intent(MainActivity.this,GankActivity.class));
-    }
 }

@@ -24,9 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="＃"
+            android:text=" &#187;"
             android:layout_marginLeft="16dp"
-            android:textSize="14sp"/>
+            android:textSize="18sp"/>
         <TextView
             android:id="@+id/tv_gank_desc"
             android:layout_width="wrap_content"
