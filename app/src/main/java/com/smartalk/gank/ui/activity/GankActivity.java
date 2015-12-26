@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +19,7 @@ import com.smartalk.gank.presenter.GankPresenter;
 import com.smartalk.gank.ui.adapter.GankAdapter;
 import com.smartalk.gank.ui.base.BaseActivity;
 import com.smartalk.gank.utils.DateUtil;
+import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IGankView;
 
 import java.util.ArrayList;
@@ -84,5 +86,23 @@ public class GankActivity extends BaseActivity implements IGankView {
     public void showGankList(List<Gank> gankList) {
         list.addAll(gankList);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showErrorView() {
+        TipsUtil.showTipWithAction(fab, "加载失败", "重试", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.fetchGankData(calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH) + 1,
+                        calendar.get(Calendar.DAY_OF_MONTH));
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

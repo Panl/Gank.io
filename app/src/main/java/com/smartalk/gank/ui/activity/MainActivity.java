@@ -8,12 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.MainPresenter;
 import com.smartalk.gank.ui.adapter.MeiziAdapter;
 import com.smartalk.gank.ui.base.BaseActivity;
+import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IMainView;
 
 import java.util.ArrayList;
@@ -130,7 +132,12 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void showErrorView() {
-
+        TipsUtil.showTipWithAction(fab, "加载失败", "重试", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.fetchMeiziData(page);
+            }
+        });
     }
 
     @Override

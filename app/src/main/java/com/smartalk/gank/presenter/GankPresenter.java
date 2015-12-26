@@ -1,7 +1,6 @@
 package com.smartalk.gank.presenter;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.smartalk.gank.http.PanClient;
 import com.smartalk.gank.model.GankData;
@@ -11,12 +10,13 @@ import com.smartalk.gank.view.IGankView;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
+ * 控制干货界面的presenter
  * Created by panl on 15/12/25.
  */
 public class GankPresenter extends BasePresenter<IGankView> {
@@ -25,12 +25,12 @@ public class GankPresenter extends BasePresenter<IGankView> {
         super(context, iView);
     }
 
-    public void initGankView(){
+    public void initGankView() {
         iView.initGankView();
     }
 
-    public void fetchGankData(int year,int month,int day){
-        PanClient.getGankRetrofitInstance().getDailyData(year,month,day)
+    public void fetchGankData(int year, int month, int day) {
+        PanClient.getGankRetrofitInstance().getDailyData(year, month, day)
                 .map(new Func1<GankData, List<Gank>>() {
                     @Override
                     public List<Gank> call(GankData gankData) {
@@ -39,25 +39,20 @@ public class GankPresenter extends BasePresenter<IGankView> {
                 })
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<Gank>>() {
+                .subscribe(new Action1<List<Gank>>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(context,"error",Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onNext(List<Gank> gankList) {
+                    public void call(List<Gank> gankList) {
                         iView.showGankList(gankList);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        iView.showErrorView();
                     }
                 });
     }
 
-    private List<Gank> addAllResults(GankData.Result results){
+    private List<Gank> addAllResults(GankData.Result results) {
         List<Gank> mGankList = new ArrayList<>();
         if (results.androidList != null) mGankList.addAll(results.androidList);
         if (results.iOSList != null) mGankList.addAll(results.iOSList);

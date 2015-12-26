@@ -6,41 +6,36 @@ import com.smartalk.gank.http.PanClient;
 import com.smartalk.gank.model.MeiziData;
 import com.smartalk.gank.view.IMainView;
 
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
  * 主界面presenter
  * Created by panl on 15/12/24.
  */
-public class MainPresenter extends BasePresenter<IMainView>{
+public class MainPresenter extends BasePresenter<IMainView> {
 
     public MainPresenter(Context context, IMainView iView) {
         super(context, iView);
         iView.initMainView();
     }
 
-    public void fetchMeiziData(int page){
+    public void fetchMeiziData(int page) {
         iView.showProgress();
         PanClient.getGankRetrofitInstance().getMeiziData(page)
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<MeiziData>() {
+                .subscribe(new Action1<MeiziData>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        iView.showErrorView();
+                    public void call(MeiziData meiziData) {
+                        iView.showMeiziList(meiziData.results);
                         iView.hideProgress();
                     }
-
+                }, new Action1<Throwable>() {
                     @Override
-                    public void onNext(MeiziData meiziData) {
-                        iView.showMeiziList(meiziData.results);
+                    public void call(Throwable throwable) {
+                        iView.showErrorView();
                         iView.hideProgress();
                     }
                 });
