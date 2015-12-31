@@ -7,7 +7,6 @@
         android:id="@+id/tv_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Android"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
@@ -24,14 +23,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text=" &#187;"
+            android:text="@string/gank_symbol"
             android:layout_marginLeft="16dp"
             android:textSize="18sp"/>
         <TextView
             android:id="@+id/tv_gank_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Android交互设计的一些见解"
             android:textSize="14sp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="16dp"

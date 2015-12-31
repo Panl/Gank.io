@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +14,7 @@ import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.MainPresenter;
 import com.smartalk.gank.ui.adapter.MeiziAdapter;
 import com.smartalk.gank.ui.base.BaseActivity;
+import com.smartalk.gank.ui.widget.LMRecyclerView;
 import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IMainView;
 
@@ -25,7 +25,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements
-        SwipeRefreshLayout.OnRefreshListener, IMainView{
+        SwipeRefreshLayout.OnRefreshListener, IMainView, LMRecyclerView.LoadMoreListener {
 
     private List<Meizi> meizis;
     private MeiziAdapter adapter;
@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity implements
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.rv_meizi)
-    RecyclerView rvMeizi;
+    LMRecyclerView rvMeizi;
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.fab)
@@ -87,6 +87,8 @@ public class MainActivity extends BaseActivity implements
         adapter = new MeiziAdapter(this, meizis);
         rvMeizi.setLayoutManager(new LinearLayoutManager(this));
         rvMeizi.setAdapter(adapter);
+        rvMeizi.applyFloatingActionButton(fab);
+        rvMeizi.setLoadMoreListener(this);
         swipeRefreshLayout.setColorSchemeResources(R.color.yellow, R.color.red, R.color.blue);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
@@ -95,25 +97,10 @@ public class MainActivity extends BaseActivity implements
                 swipeRefreshLayout.setRefreshing(true);
             }
         });
-        rvMeizi.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            boolean isSlidingToBottom;
-
+        toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                isSlidingToBottom = dy > 0;
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    int lastVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition();
-                    int totalItemCount = layoutManager.getItemCount();
-                    if (lastVisibleItem == (totalItemCount - 1) && isSlidingToBottom) {
-                        page++;
-                        presenter.fetchMeiziData(page);
-                    }
-                }
+            public void onClick(View v) {
+                rvMeizi.smoothScrollToPosition(0);
             }
         });
     }
@@ -132,7 +119,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void showErrorView() {
-        TipsUtil.showTipWithAction(fab, "加载失败", "重试", new View.OnClickListener() {
+        TipsUtil.showTipWithAction(fab, getString(R.string.load_failed), getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.fetchMeiziData(page);
@@ -153,4 +140,9 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+    @Override
+    public void loadMore() {
+        page++;
+        presenter.fetchMeiziData(page);
+    }
 }

@@ -90,7 +90,7 @@ public class GankActivity extends BaseActivity implements IGankView {
 
     @Override
     public void showErrorView() {
-        TipsUtil.showTipWithAction(fab, "加载失败", "重试", new View.OnClickListener() {
+        TipsUtil.showTipWithAction(fab, getString(R.string.load_failed), getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.fetchGankData(calendar.get(Calendar.YEAR),

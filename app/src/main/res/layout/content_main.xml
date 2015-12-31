@@ -11,7 +11,7 @@
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
+        <com.smartalk.gank.ui.widget.LMRecyclerView
             android:id="@+id/rv_meizi"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

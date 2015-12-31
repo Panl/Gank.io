@@ -53,8 +53,10 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
                 .load(meizi.url)
                 .centerCrop()
                 .into(holder.ivMeizi);
-        holder.tvWho.setText(DateUtil.toDateString(meizi.publishedAt) + " @" + meizi.who);
-        showItemAnimation(holder,position);
+        holder.tvWho.setText(DateUtil.toDateString(meizi.publishedAt).
+                append(context.getString(R.string.at)).
+                append(meizi.who));
+        showItemAnimation(holder, position);
     }
 
     @Override
@@ -63,10 +65,10 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
     }
 
 
-    private void showItemAnimation(MeiziHolder holder,int position){
-        if (position > lastPosition){
+    private void showItemAnimation(MeiziHolder holder, int position) {
+        if (position > lastPosition) {
             lastPosition = position;
-            ObjectAnimator.ofFloat(holder.card,"translationY",1f*holder.card.getHeight(),0f)
+            ObjectAnimator.ofFloat(holder.card, "translationY", 1f * holder.card.getHeight(), 0f)
                     .setDuration(500)
                     .start();
         }
