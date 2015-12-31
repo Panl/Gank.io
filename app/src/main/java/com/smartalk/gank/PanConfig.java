@@ -7,7 +7,8 @@ package com.smartalk.gank;
 public class PanConfig {
     public static final int MEIZI_SIZE = 20;
 
-
-
     public static final String MEIZI= "meizi";
+    public static final String GANK_URL = "gank_url";
+    public static final String GANK_TITLE = "gank_title";
+    public static final String GANK = "gank";
 }

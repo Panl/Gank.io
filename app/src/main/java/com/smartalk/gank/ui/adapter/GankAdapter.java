@@ -1,7 +1,6 @@
 package com.smartalk.gank.ui.adapter;
 
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Gank;
+import com.smartalk.gank.ui.activity.WebActivity;
 import com.smartalk.gank.utils.StringStyleUtil;
 
 import java.util.List;
@@ -77,7 +77,7 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankHolder> {
 
         @OnClick(R.id.ll_gank)
         void gankClick() {
-            Snackbar.make(llGank,"Gank.io",Snackbar.LENGTH_SHORT).setAction("gank",null).show();
+            WebActivity.loadWebViewActivity(context, (Gank) llGank.getTag());
         }
 
         public GankHolder(View itemView) {
