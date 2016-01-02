@@ -6,9 +6,10 @@
 
     <color name="blue">#5677fc</color>
     <color name="red">#e51c23</color>
-    <color name="greed">#259b24</color>
+    <color name="green">#259b24</color>
     <color name="yellow">#ffeb3b</color>
     <color name="white">#fff</color>
     <color name="black">#000</color>
+    <color name="grey">#515151</color>
 
 </resources>

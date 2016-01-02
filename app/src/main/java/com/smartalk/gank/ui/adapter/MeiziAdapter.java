@@ -15,7 +15,6 @@ import com.smartalk.gank.PanConfig;
 import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.ui.activity.GankActivity;
-import com.smartalk.gank.utils.DateUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -33,6 +32,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
     List<Meizi> list;
     Context context;
     int lastPosition = 0;
+
 
     public MeiziAdapter(Context context, List<Meizi> list) {
         this.list = list;
@@ -53,9 +53,9 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
                 .load(meizi.url)
                 .centerCrop()
                 .into(holder.ivMeizi);
-        holder.tvWho.setText(DateUtil.toDateString(meizi.publishedAt).
-                append(context.getString(R.string.at)).
-                append(meizi.who));
+        holder.tvWho.setText(meizi.who);
+        holder.tvAvatar.setText(meizi.who.substring(0,1));
+        holder.tvDesc.setText(meizi.desc);
         showItemAnimation(holder, position);
     }
 
@@ -80,9 +80,18 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
         ImageView ivMeizi;
         @Bind(R.id.tv_who)
         TextView tvWho;
+        @Bind(R.id.tv_avatar)
+        TextView tvAvatar;
+        @Bind(R.id.tv_desc)
+        TextView tvDesc;
 
         @OnClick(R.id.iv_meizi)
         void meiziClick() {
+
+        }
+
+        @OnClick(R.id.rl_gank)
+        void gankClick(){
             Intent intent = new Intent(context, GankActivity.class);
             intent.putExtra(PanConfig.MEIZI, (Serializable) card.getTag());
             context.startActivity(intent);
