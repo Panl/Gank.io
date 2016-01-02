@@ -21,7 +21,6 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     public MainPresenter(Context context, IMainView iView) {
         super(context, iView);
-        iView.initMainView();
     }
 
     public void fetchMeiziData(int page) {

@@ -19,6 +19,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
         android:src="@mipmap/ic_stars"
-        app:elevation="5dp" />
+        app:elevation="5dp"
+        app:layout_scrollFlags="scroll|enterAlways" />
 
 </android.support.design.widget.CoordinatorLayout>

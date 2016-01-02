@@ -28,6 +28,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class GankActivity extends BaseActivity implements IGankView {
 
@@ -49,6 +50,10 @@ public class GankActivity extends BaseActivity implements IGankView {
     ImageView ivHead;
     @Bind(R.id.rv_gank)
     RecyclerView rvGank;
+    @OnClick(R.id.fab)
+    void fabClick(){
+        TipsUtil.showSnackTip(fab,"功能待开发...");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +61,14 @@ public class GankActivity extends BaseActivity implements IGankView {
         setContentView(R.layout.activity_gank);
         ButterKnife.bind(this);
         presenter = new GankPresenter(this, this);
-        presenter.initGankView();
+        presenter.initView();
         presenter.fetchGankData(calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1,
                 calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
-    public void initGankView() {
+    public void initView() {
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);

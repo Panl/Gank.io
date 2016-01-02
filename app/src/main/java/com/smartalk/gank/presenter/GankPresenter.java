@@ -25,10 +25,6 @@ public class GankPresenter extends BasePresenter<IGankView> {
         super(context, iView);
     }
 
-    public void initGankView() {
-        iView.initGankView();
-    }
-
     public void fetchGankData(int year, int month, int day) {
         PanClient.getGankRetrofitInstance().getDailyData(year, month, day)
                 .map(new Func1<GankData, List<Gank>>() {

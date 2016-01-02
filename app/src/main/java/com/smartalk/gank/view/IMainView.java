@@ -9,7 +9,6 @@ import java.util.List;
  * Created by panl on 15/12/22.
  */
 public interface IMainView extends IBaseView{
-    void initMainView();
     void showProgress();
     void hideProgress();
     void showErrorView();

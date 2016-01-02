@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements
         SwipeRefreshLayout.OnRefreshListener, IMainView, LMRecyclerView.LoadMoreListener {
@@ -41,13 +42,17 @@ public class MainActivity extends BaseActivity implements
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.fab)
     FloatingActionButton fab;
-
+    @OnClick(R.id.fab)
+    void fabClick(){
+        TipsUtil.showSnackTip(fab,"功能待开发...");
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter = new MainPresenter(this, this);
+        presenter.initView();
     }
 
     @Override
@@ -80,7 +85,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void initMainView() {
+    public void initView() {
         setSupportActionBar(toolbar);
         meizis = new ArrayList<>();
         adapter = new MeiziAdapter(this, meizis);
