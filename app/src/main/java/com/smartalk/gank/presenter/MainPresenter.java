@@ -4,10 +4,13 @@ import android.content.Context;
 
 import com.smartalk.gank.http.PanClient;
 import com.smartalk.gank.model.MeiziData;
+import com.smartalk.gank.model.休息视频Data;
 import com.smartalk.gank.view.IMainView;
 
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func2;
 import rx.schedulers.Schedulers;
 
 /**
@@ -23,7 +26,14 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     public void fetchMeiziData(int page) {
         iView.showProgress();
-        PanClient.getGankRetrofitInstance().getMeiziData(page)
+        Observable.zip(PanClient.getGankRetrofitInstance().getMeiziData(page),
+                PanClient.getGankRetrofitInstance().get休息视频Data(page),
+                new Func2<MeiziData, 休息视频Data, MeiziData>() {
+                    @Override
+                    public MeiziData call(MeiziData meiziData, 休息视频Data 休息视频Data) {
+                        return createMeiziDataWith休息视频Desc(meiziData, 休息视频Data);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<MeiziData>() {
@@ -42,5 +52,12 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     }
 
+    private MeiziData createMeiziDataWith休息视频Desc(MeiziData meiziData, 休息视频Data data) {
+        for (int i = 0; i < meiziData.results.size(); i++) {
+            meiziData.results.get(i).desc = meiziData.results.get(i).desc + "，" + data.results.get(i).desc;
+            meiziData.results.get(i).who = data.results.get(i).who;
+        }
+        return meiziData;
+    }
 
 }

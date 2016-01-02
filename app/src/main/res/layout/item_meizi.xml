@@ -20,34 +20,46 @@
 
         <RelativeLayout
             android:id="@+id/rl_gank"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground">
 
             <TextView
                 android:id="@+id/tv_avatar"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:layout_margin="8dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_margin="6dp"
                 android:background="@drawable/circle_pink"
                 android:gravity="center"
+                android:layout_centerVertical="true"
                 android:textColor="@color/white"
                 android:text="D"
                 android:textSize="22sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_who"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_toRightOf="@id/tv_avatar"
-                android:text="\@daimajia"
                 android:textColor="#000"
+                android:text="\@daimajia"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_who"
+                android:text="2015年11月27日"
+                android:textSize="10sp"
+                android:layout_marginLeft="5dp"
+                android:layout_alignBaseline="@id/tv_who"
+                android:layout_marginRight="8dp"/>
 
             <TextView
                 android:id="@+id/tv_desc"
@@ -55,12 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_who"
                 android:layout_marginTop="2dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="8dp"
                 android:layout_toRightOf="@id/tv_avatar"
-                android:text="Many things are very simple,you just need to be happy."
-                android:gravity="right"
                 android:textColor="@color/grey"
                 android:textSize="12sp"
                 />

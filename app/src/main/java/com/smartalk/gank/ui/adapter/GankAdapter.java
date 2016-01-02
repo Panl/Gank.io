@@ -25,6 +25,8 @@ import butterknife.OnClick;
 public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankHolder> {
     List<Gank> list;
     Context context;
+    int lastPosition = 0;
+    final long DELAY = 100;
 
     public GankAdapter(List<Gank> list, Context context) {
         this.list = list;
@@ -61,6 +63,8 @@ public class GankAdapter extends RecyclerView.Adapter<GankAdapter.GankHolder> {
             tvCategory.setVisibility(View.GONE);
         }
     }
+
+
 
     @Override
     public int getItemCount() {

@@ -48,7 +48,6 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         presenter = new MainPresenter(this, this);
-        presenter.fetchMeiziData(page);
     }
 
     @Override
@@ -95,6 +94,7 @@ public class MainActivity extends BaseActivity implements
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing(true);
+                presenter.fetchMeiziData(page);
             }
         });
         toolbar.setOnClickListener(new View.OnClickListener() {
