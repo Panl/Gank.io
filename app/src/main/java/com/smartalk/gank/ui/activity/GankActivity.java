@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -75,6 +76,7 @@ public class GankActivity extends BaseActivity implements IGankView {
         list = new ArrayList<>();
         adapter = new GankAdapter(list, this);
         rvGank.setLayoutManager(new LinearLayoutManager(this));
+        rvGank.setItemAnimator(new DefaultItemAnimator());
         rvGank.setAdapter(adapter);
         getIntentData();
         setTitle(DateUtil.toDateString(meizi.publishedAt));
