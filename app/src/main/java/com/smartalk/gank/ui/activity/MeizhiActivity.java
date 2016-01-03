@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +32,8 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
     Meizi meizi;
     PhotoViewAttacher attacher;
     MeizhiPresenter presenter;
+    boolean isToolBarHiding = false;
+
     @Bind(R.id.iv_meizhi)
     ImageView ivMeizhi;
     @Bind(R.id.toolbar)
@@ -64,11 +68,12 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
         getIntentData();
         setTitle(DateUtil.toDateTimeStr(meizi.publishedAt));
         ViewCompat.setTransitionName(ivMeizhi, TRANSLATE_VIEW);
+        attacher = new PhotoViewAttacher(ivMeizhi);
         Glide.with(this).load(meizi.url).fitCenter().into(new SimpleTarget<GlideDrawable>() {
             @Override
             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                 ivMeizhi.setImageDrawable(resource);
-                attacher = new PhotoViewAttacher(ivMeizhi);
+                attacher.update();
             }
 
             @Override
@@ -76,5 +81,19 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
                 ivMeizhi.setImageDrawable(errorDrawable);
             }
         });
+        attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(View view, float x, float y) {
+                hideOrShowToolBar();
+            }
+        });
+    }
+
+    private void hideOrShowToolBar() {
+        appBar.animate()
+                .translationY(isToolBarHiding ? 0 : -appBar.getHeight())
+                .setInterpolator(new DecelerateInterpolator(2))
+                .start();
+        isToolBarHiding = !isToolBarHiding;
     }
 }
