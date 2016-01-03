@@ -18,7 +18,7 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,13 +28,13 @@
         <activity
             android:name=".ui.activity.GankActivity"
             android:label="@string/title_activity_gank"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.WebActivity"
             android:launchMode="singleTask" />
         <activity android:name=".ui.activity.MeizhiActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

@@ -57,7 +57,6 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
         holder.card.setTag(meizi);
         Glide.with(context)
                 .load(meizi.url)
-                .centerCrop()
                 .into(holder.ivMeizi);
         holder.tvWho.setText(meizi.who);
         holder.tvAvatar.setText(meizi.who.substring(0, 1).toUpperCase());
@@ -102,7 +101,6 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
             ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
                     .makeSceneTransitionAnimation((Activity)context,ivMeizi,MeizhiActivity.TRANSLATE_VIEW);
             ActivityCompat.startActivity((Activity) context,intent,optionsCompat.toBundle());
-            //context.startActivity(intent);
         }
 
         @OnClick(R.id.rl_gank)
