@@ -31,7 +31,6 @@
                 android:layout_margin="6dp"
                 android:background="@drawable/circle_pink"
                 android:gravity="center"
-                android:text="D"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -43,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_toRightOf="@id/tv_avatar"
-                android:text="\@daimajia"
                 android:textColor="#000"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -56,7 +54,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="8dp"
                 android:layout_toRightOf="@id/tv_who"
-                android:text="2015年11月27日"
                 android:textSize="10sp" />
 
             <TextView

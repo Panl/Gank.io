@@ -30,6 +30,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 public class GankActivity extends BaseActivity implements IGankView {
 
@@ -51,9 +52,12 @@ public class GankActivity extends BaseActivity implements IGankView {
     ImageView ivHead;
     @Bind(R.id.rv_gank)
     RecyclerView rvGank;
+    @Bind(R.id.progressbar)
+    SmoothProgressBar progressbar;
+
     @OnClick(R.id.fab)
-    void fabClick(){
-        TipsUtil.showSnackTip(fab,"功能待开发...");
+    void fabClick() {
+        TipsUtil.showSnackTip(fab, "功能待开发...");
     }
 
     @Override
@@ -93,6 +97,16 @@ public class GankActivity extends BaseActivity implements IGankView {
     public void showGankList(List<Gank> gankList) {
         list.addAll(gankList);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressbar.setVisibility(View.GONE);
     }
 
     @Override

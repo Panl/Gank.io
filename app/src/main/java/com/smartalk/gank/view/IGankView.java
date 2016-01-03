@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface IGankView extends IBaseView {
     void showGankList(List<Gank> gankList);
+    void showProgressBar();
+    void hideProgressBar();
     void showErrorView();
 }

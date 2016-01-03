@@ -101,12 +101,12 @@ public class WebActivity extends BaseActivity implements IWebView {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN){
-            switch (keyCode){
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
                 case KeyEvent.KEYCODE_BACK:
-                    if (webView.canGoBack()){
+                    if (webView.canGoBack()) {
                         webView.goBack();
-                    }else {
+                    } else {
                         finish();
                     }
                     return true;
@@ -118,6 +118,7 @@ public class WebActivity extends BaseActivity implements IWebView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        webView.destroy();
+        if (webView != null)
+            webView.destroy();
     }
 }

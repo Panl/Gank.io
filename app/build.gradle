@@ -34,4 +34,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.daimajia.numberprogressbar:library:1.2@aar'
     compile 'com.github.mthli:Slice:v1.0'
+    compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
+    compile 'com.commit451:PhotoView:1.2.4'
 }

@@ -29,10 +29,12 @@
             android:name=".ui.activity.GankActivity"
             android:label="@string/title_activity_gank"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.activity.WebActivity"
             android:launchMode="singleTask" />
+        <activity android:name=".ui.activity.MeizhiActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

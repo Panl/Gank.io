@@ -1,8 +1,11 @@
 package com.smartalk.gank.ui.adapter;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import com.smartalk.gank.PanConfig;
 import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.ui.activity.GankActivity;
+import com.smartalk.gank.ui.activity.MeizhiActivity;
 import com.smartalk.gank.utils.DateUtil;
 
 import java.io.Serializable;
@@ -93,7 +97,12 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
 
         @OnClick(R.id.iv_meizi)
         void meiziClick() {
-
+            Intent intent = new Intent(context, MeizhiActivity.class);
+            intent.putExtra(PanConfig.MEIZI,(Serializable) card.getTag());
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation((Activity)context,ivMeizi,MeizhiActivity.TRANSLATE_VIEW);
+            ActivityCompat.startActivity((Activity) context,intent,optionsCompat.toBundle());
+            //context.startActivity(intent);
         }
 
         @OnClick(R.id.rl_gank)
@@ -112,7 +121,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
             iniSlice(card);
         }
 
-        private void iniSlice(View view){
+        private void iniSlice(View view) {
             Slice slice = new Slice(view);
             slice.setElevation(2.5f);
             slice.setRadius(5.0f);

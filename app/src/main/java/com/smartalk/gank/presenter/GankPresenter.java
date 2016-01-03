@@ -26,6 +26,7 @@ public class GankPresenter extends BasePresenter<IGankView> {
     }
 
     public void fetchGankData(int year, int month, int day) {
+        iView.showProgressBar();
         PanClient.getGankRetrofitInstance().getDailyData(year, month, day)
                 .map(new Func1<GankData, List<Gank>>() {
                     @Override
@@ -39,6 +40,7 @@ public class GankPresenter extends BasePresenter<IGankView> {
                     @Override
                     public void call(List<Gank> gankList) {
                         iView.showGankList(gankList);
+                        iView.hideProgressBar();
                     }
                 }, new Action1<Throwable>() {
                     @Override
