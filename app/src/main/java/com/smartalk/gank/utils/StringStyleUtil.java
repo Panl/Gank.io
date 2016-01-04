@@ -12,6 +12,9 @@ import com.smartalk.gank.model.entity.Gank;
  * Created by panl on 15/12/25.
  */
 public class StringStyleUtil {
+    private StringStyleUtil(){
+
+    }
     public static SpannableString getGankStyleStr(Gank gank){
         String gankStr = gank.desc + " @" + gank.who;
         SpannableString spannableString = new SpannableString(gankStr);

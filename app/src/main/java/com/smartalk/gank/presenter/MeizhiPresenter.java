@@ -30,7 +30,7 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
             public void call(Subscriber<? super Uri> subscriber) {
                 Uri uri = FileUtil.saveBitmapToSDCard(bitmap, title);
                 if (uri == null) {
-                    subscriber.onError(new Exception("下载失败"));
+                    subscriber.onError(new Exception("禽兽,妹子拒绝了您的请求(failed)!"));
                 } else {
                     subscriber.onNext(uri);
                     subscriber.onCompleted();
@@ -44,12 +44,12 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
                     public void call(Uri uri) {
                         Intent scannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
                         context.sendBroadcast(scannerIntent);
-                        iView.showSaveGirlResult("保存成功!");
+                        iView.showSaveGirlResult("该妹子已经躺在您的图库中了!");
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        iView.showSaveGirlResult("保存失败!");
+                        iView.showSaveGirlResult("禽兽,妹子拒绝了您的请求(failed)!");
                     }
                 });
     }

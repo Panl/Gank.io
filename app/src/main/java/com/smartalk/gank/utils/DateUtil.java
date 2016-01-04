@@ -9,6 +9,10 @@ import java.util.Date;
  * Created by panl on 15/12/25.
  */
 public class DateUtil {
+
+    private DateUtil(){
+
+    }
     public static StringBuilder toDateString(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

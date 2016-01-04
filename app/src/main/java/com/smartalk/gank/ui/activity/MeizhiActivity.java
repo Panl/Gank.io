@@ -32,8 +32,6 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class MeizhiActivity extends BaseActivity implements IMeizhiView {
 
-    public static final String TRANSLATE_VIEW = "meizhi";
-
     Meizi meizi;
     PhotoViewAttacher attacher;
     MeizhiPresenter presenter;
@@ -74,8 +72,8 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
         appBar.setAlpha(0.6f);
         getIntentData();
         setTitle(DateUtil.toDateTimeStr(meizi.publishedAt));
-        ViewCompat.setTransitionName(ivMeizhi, TRANSLATE_VIEW);
         ivMeizhi.setImageDrawable(ShareElement.shareDrawable);
+        ViewCompat.setTransitionName(ivMeizhi, PanConfig.TRANSLATE_GIRL_VIEW);
         attacher = new PhotoViewAttacher(ivMeizhi);
         Glide.with(this).load(meizi.url).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
@@ -109,7 +107,7 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
         switch (item.getItemId()) {
             case R.id.action_save:
                 if (!FileUtil.isSDCardEnable() || girl == null) {
-                    TipsUtil.showSnackTip(ivMeizhi, "保存失败!");
+                    TipsUtil.showSnackTip(ivMeizhi, "禽兽,妹子拒绝了您的请求(failed)!");
                 } else {
                     presenter.saveMeizhiImage(girl, DateUtil.toDateString(meizi.publishedAt).toString());
                 }

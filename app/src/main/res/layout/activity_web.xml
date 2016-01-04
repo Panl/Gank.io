@@ -10,7 +10,7 @@
     <include layout="@layout/view_toolbar" />
     <com.daimajia.numberprogressbar.NumberProgressBar
         android:id="@+id/progressbar"
-        style="@style/NumberProgressBar_Beauty_Red"
+        style="@style/NumberProgressBar_Funny_Orange"
         android:layout_width="match_parent"
         app:progress_reached_bar_height="2dp"
         app:progress_text_size="0sp"

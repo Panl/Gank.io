@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.smartalk.gank.PanConfig;
 import com.smartalk.gank.R;
+import com.smartalk.gank.ShareElement;
 import com.smartalk.gank.model.entity.Gank;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.GankPresenter;
@@ -85,6 +87,9 @@ public class GankActivity extends BaseActivity implements IGankView {
         rvGank.setAdapter(adapter);
         getIntentData();
         setTitle(DateUtil.toDateString(meizi.publishedAt));
+        ivHead.setImageDrawable(ShareElement.shareDrawable);
+        ViewCompat.setTransitionName(ivHead, PanConfig.TRANSLATE_GIRL_VIEW);
+
         Glide.with(this).load(meizi.url).centerCrop().into(ivHead);
         calendar = Calendar.getInstance();
         calendar.setTime(meizi.publishedAt);
@@ -124,7 +129,7 @@ public class GankActivity extends BaseActivity implements IGankView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_gank,menu);
+        getMenuInflater().inflate(R.menu.menu_gank, menu);
         return true;
     }
 
