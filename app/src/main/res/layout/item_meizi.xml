@@ -1,71 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.smartalk.gank.ui.widget.SquareImageView
+        android:id="@+id/iv_meizi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/meizi"
+        android:scaleType="centerCrop" />
 
-        <ImageView
-            android:id="@+id/iv_meizi"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:contentDescription="meizi"
-            android:scaleType="centerCrop" />
+    <RelativeLayout
+        android:id="@+id/rl_gank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="10dp">
 
-        <RelativeLayout
-            android:id="@+id/rl_gank"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_avatar"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="6dp"
+            android:background="@drawable/circle_pink"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_who"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:padding="10dp">
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/tv_avatar"
+            android:textColor="#000"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_avatar"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_centerVertical="true"
-                android:layout_margin="6dp"
-                android:background="@drawable/circle_pink"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_who"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="8dp"
+            android:layout_toRightOf="@id/tv_who"
+            android:textSize="10sp" />
 
-            <TextView
-                android:id="@+id/tv_who"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_toRightOf="@id/tv_avatar"
-                android:textColor="#000"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_who"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@id/tv_avatar"
+            android:textColor="@color/grey"
+            android:textSize="12sp" />
+    </RelativeLayout>
+</LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/tv_who"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="8dp"
-                android:layout_toRightOf="@id/tv_who"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/tv_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_who"
-                android:layout_marginTop="2dp"
-                android:layout_toRightOf="@id/tv_avatar"
-                android:textColor="@color/grey"
-                android:textSize="12sp" />
-        </RelativeLayout>
-    </LinearLayout>
-
-</FrameLayout>

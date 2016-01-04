@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.smartalk.gank.PanConfig;
 import com.smartalk.gank.R;
+import com.smartalk.gank.ShareElement;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.ui.activity.GankActivity;
 import com.smartalk.gank.ui.activity.MeizhiActivity;
@@ -55,6 +57,10 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
     public void onBindViewHolder(MeiziHolder holder, int position) {
         final Meizi meizi = list.get(position);
         holder.card.setTag(meizi);
+        int red = (int) (Math.random()*255);
+        int green = (int) (Math.random()*255);
+        int blue = (int) (Math.random()*255);
+        holder.ivMeizi.setBackgroundColor(Color.argb(204,red,green,blue));
         Glide.with(context)
                 .load(meizi.url)
                 .into(holder.ivMeizi);
@@ -101,6 +107,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
             ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
                     .makeSceneTransitionAnimation((Activity)context,ivMeizi,MeizhiActivity.TRANSLATE_VIEW);
             ActivityCompat.startActivity((Activity) context,intent,optionsCompat.toBundle());
+            ShareElement.shareDrawable = ivMeizi.getDrawable();
         }
 
         @OnClick(R.id.rl_gank)
@@ -116,10 +123,10 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
             super(itemView);
             card = itemView;
             ButterKnife.bind(this, itemView);
-            iniSlice(card);
+            initSlice(card);
         }
 
-        private void iniSlice(View view) {
+        private void initSlice(View view) {
             Slice slice = new Slice(view);
             slice.setElevation(2.5f);
             slice.setRadius(5.0f);

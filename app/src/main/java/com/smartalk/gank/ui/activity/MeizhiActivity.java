@@ -15,6 +15,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.smartalk.gank.PanConfig;
 import com.smartalk.gank.R;
+import com.smartalk.gank.ShareElement;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.MeizhiPresenter;
 import com.smartalk.gank.ui.base.BaseActivity;
@@ -57,6 +58,7 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ShareElement.shareDrawable = null;
     }
 
     @Override
@@ -68,6 +70,7 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
         getIntentData();
         setTitle(DateUtil.toDateTimeStr(meizi.publishedAt));
         ViewCompat.setTransitionName(ivMeizhi, TRANSLATE_VIEW);
+        ivMeizhi.setImageDrawable(ShareElement.shareDrawable);
         attacher = new PhotoViewAttacher(ivMeizhi);
         Glide.with(this).load(meizi.url).fitCenter().into(new SimpleTarget<GlideDrawable>() {
             @Override
@@ -96,4 +99,6 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
                 .start();
         isToolBarHiding = !isToolBarHiding;
     }
+
+
 }
