@@ -63,6 +63,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
         holder.ivMeizi.setBackgroundColor(Color.argb(204,red,green,blue));
         Glide.with(context)
                 .load(meizi.url)
+                .crossFade()
                 .into(holder.ivMeizi);
         holder.tvWho.setText(meizi.who);
         holder.tvAvatar.setText(meizi.who.substring(0, 1).toUpperCase());

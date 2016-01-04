@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.smartalk.gank.ui.activity.GankActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_share"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:icon="@mipmap/ic_share"
+        android:title="@string/action_share"
+        app:showAsAction="always" />
 </menu>

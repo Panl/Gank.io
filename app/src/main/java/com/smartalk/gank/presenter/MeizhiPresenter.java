@@ -1,17 +1,21 @@
 package com.smartalk.gank.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Environment;
+import android.net.Uri;
 
+import com.smartalk.gank.utils.FileUtil;
 import com.smartalk.gank.view.IMeizhiView;
 
-import java.io.File;
-
 import rx.Observable;
-import rx.functions.Func1;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
+ *
  * Created by panl on 16/1/3.
  */
 public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
@@ -20,17 +24,35 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
         super(context, iView);
     }
 
-    public void saveMeizhiImage(Bitmap bitmap) {
-        Observable.just(bitmap)
-                .flatMap(new Func1<Bitmap, Observable<?>>() {
+    public void saveMeizhiImage(final Bitmap bitmap, final String title) {
+        Observable.create(new Observable.OnSubscribe<Uri>() {
+            @Override
+            public void call(Subscriber<? super Uri> subscriber) {
+                Uri uri = FileUtil.saveBitmapToSDCard(bitmap, title);
+                if (uri == null) {
+                    subscriber.onError(new Exception("下载失败"));
+                } else {
+                    subscriber.onNext(uri);
+                    subscriber.onCompleted();
+                }
+
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Uri>() {
                     @Override
-                    public Observable<?> call(Bitmap bitmap) {
-                        File gankDir = new File(Environment.getExternalStorageDirectory(), "gank");
-                        if (!gankDir.exists()) {
-                            gankDir.mkdirs();
-                        }
-                        return null;
+                    public void call(Uri uri) {
+                        Intent scannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
+                        context.sendBroadcast(scannerIntent);
+                        iView.showSaveGirlResult("保存成功!");
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        iView.showSaveGirlResult("保存失败!");
                     }
                 });
     }
+
+
 }

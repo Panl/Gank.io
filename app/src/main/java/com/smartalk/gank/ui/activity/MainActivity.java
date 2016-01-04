@@ -33,6 +33,7 @@ public class MainActivity extends BaseActivity implements
     private MainPresenter presenter;
     private int page = 1;
     private boolean isRefresh = true;
+    private boolean isLoading = false;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -42,10 +43,12 @@ public class MainActivity extends BaseActivity implements
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.fab)
     FloatingActionButton fab;
+
     @OnClick(R.id.fab)
-    void fabClick(){
-        TipsUtil.showSnackTip(fab,"功能待开发...");
+    void fabClick() {
+        TipsUtil.showSnackTip(fab, "功能待开发...");
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +127,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void showErrorView() {
+        isLoading = false;
         TipsUtil.showTipWithAction(fab, getString(R.string.load_failed), getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,6 +138,8 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void showMeiziList(List<Meizi> meiziList) {
+        isLoading = false;
+        page++;
         if (isRefresh) {
             meizis.clear();
             meizis.addAll(meiziList);
@@ -147,7 +153,8 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void loadMore() {
-        page++;
-        presenter.fetchMeiziData(page);
+        if (!isLoading)
+            presenter.fetchMeiziData(page);
+        isLoading = true;
     }
 }

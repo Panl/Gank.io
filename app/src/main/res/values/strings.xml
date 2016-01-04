@@ -7,4 +7,6 @@
     <string name="retry">重试</string>
     <string name="at">\@</string>
     <string name="meizi">meizi</string>
+    <string name="action_save">保存</string>
+    <string name="action_share">分享</string>
 </resources>

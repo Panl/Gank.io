@@ -1,16 +1,18 @@
 package com.smartalk.gank.ui.activity;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.smartalk.gank.PanConfig;
@@ -20,6 +22,8 @@ import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.MeizhiPresenter;
 import com.smartalk.gank.ui.base.BaseActivity;
 import com.smartalk.gank.utils.DateUtil;
+import com.smartalk.gank.utils.FileUtil;
+import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IMeizhiView;
 
 import butterknife.Bind;
@@ -34,6 +38,7 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
     PhotoViewAttacher attacher;
     MeizhiPresenter presenter;
     boolean isToolBarHiding = false;
+    Bitmap girl;
 
     @Bind(R.id.iv_meizhi)
     ImageView ivMeizhi;
@@ -72,11 +77,12 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
         ViewCompat.setTransitionName(ivMeizhi, TRANSLATE_VIEW);
         ivMeizhi.setImageDrawable(ShareElement.shareDrawable);
         attacher = new PhotoViewAttacher(ivMeizhi);
-        Glide.with(this).load(meizi.url).fitCenter().into(new SimpleTarget<GlideDrawable>() {
+        Glide.with(this).load(meizi.url).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
-            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                ivMeizhi.setImageDrawable(resource);
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                ivMeizhi.setImageBitmap(resource);
                 attacher.update();
+                girl = resource;
             }
 
             @Override
@@ -92,6 +98,26 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_girl, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save:
+                if (!FileUtil.isSDCardEnable() || girl == null) {
+                    TipsUtil.showSnackTip(ivMeizhi, "保存失败!");
+                } else {
+                    presenter.saveMeizhiImage(girl, DateUtil.toDateString(meizi.publishedAt).toString());
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void hideOrShowToolBar() {
         appBar.animate()
                 .translationY(isToolBarHiding ? 0 : -appBar.getHeight())
@@ -101,4 +127,8 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
     }
 
 
+    @Override
+    public void showSaveGirlResult(String result) {
+        TipsUtil.showSnackTip(ivMeizhi, result);
+    }
 }
