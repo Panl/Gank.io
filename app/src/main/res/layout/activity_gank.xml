@@ -50,9 +50,9 @@
         <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
             android:id="@+id/progressbar"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="4dp"
             android:indeterminate="true"
-            app:spb_color="@color/green"
+            app:spb_color="@color/blue"
             app:spb_mirror_mode="false"
             app:spb_progressiveStart_activated="true"
             app:spb_progressiveStart_speed="1.5"

@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.smartalk.gank.PanConfig;
@@ -22,6 +19,9 @@ import com.smartalk.gank.view.IWebView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * webView not destroy yet?
+ */
 public class WebActivity extends BaseActivity implements IWebView {
 
 
@@ -51,6 +51,7 @@ public class WebActivity extends BaseActivity implements IWebView {
 
     @Override
     public void showProgressBar(int progress) {
+        if (progressbar == null) return;
         progressbar.setProgress(progress);
         if (progress == 100) {
             progressbar.setVisibility(View.GONE);
@@ -58,6 +59,12 @@ public class WebActivity extends BaseActivity implements IWebView {
             progressbar.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public void setWebTitle(String title) {
+        setTitle(title);
+    }
+
 
     @Override
     public void initView() {
@@ -68,36 +75,9 @@ public class WebActivity extends BaseActivity implements IWebView {
 
         gank = (Gank) getIntent().getSerializableExtra(PanConfig.GANK);
         setTitle(gank.desc);
-        WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setLoadWithOverviewMode(true);
-        settings.setAppCacheEnabled(true);
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        settings.setSupportZoom(true);
-        webView.setWebChromeClient(new ChromeClient());
-        webView.setWebViewClient(new GankClient());
-        webView.loadUrl(gank.url);
+        presenter.setWebViewSettings(webView, gank.url);
     }
 
-    private class ChromeClient extends WebChromeClient {
-        @Override
-        public void onProgressChanged(WebView view, int newProgress) {
-            presenter.showProgress(newProgress);
-        }
-
-        @Override
-        public void onReceivedTitle(WebView view, String title) {
-            setTitle(title);
-        }
-    }
-
-    private class GankClient extends WebViewClient {
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (url != null) view.loadUrl(url);
-            return true;
-        }
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -116,9 +96,24 @@ public class WebActivity extends BaseActivity implements IWebView {
     }
 
     @Override
+    protected void onResume() {
+        if (webView != null) webView.onResume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        if (webView != null) {
+            webView.onPause();
+        }
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (webView != null)
+        if (webView != null) {
             webView.destroy();
+        }
     }
 }

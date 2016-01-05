@@ -103,22 +103,22 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
 
         @OnClick(R.id.iv_meizi)
         void meiziClick() {
+            ShareElement.shareDrawable = ivMeizi.getDrawable();
             Intent intent = new Intent(context, MeizhiActivity.class);
             intent.putExtra(PanConfig.MEIZI,(Serializable) card.getTag());
             ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
                     .makeSceneTransitionAnimation((Activity)context,ivMeizi,PanConfig.TRANSLATE_GIRL_VIEW);
             ActivityCompat.startActivity((Activity) context,intent,optionsCompat.toBundle());
-            ShareElement.shareDrawable = ivMeizi.getDrawable();
         }
 
         @OnClick(R.id.rl_gank)
         void gankClick() {
+            ShareElement.shareDrawable = ivMeizi.getDrawable();
             Intent intent = new Intent(context, GankActivity.class);
             intent.putExtra(PanConfig.MEIZI,(Serializable) card.getTag());
             ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
                     .makeSceneTransitionAnimation((Activity)context,ivMeizi,PanConfig.TRANSLATE_GIRL_VIEW);
             ActivityCompat.startActivity((Activity) context,intent,optionsCompat.toBundle());
-            ShareElement.shareDrawable = ivMeizi.getDrawable();
         }
 
         View card;

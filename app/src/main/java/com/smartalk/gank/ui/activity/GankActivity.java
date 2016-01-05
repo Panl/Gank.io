@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.smartalk.gank.PanConfig;
 import com.smartalk.gank.R;
 import com.smartalk.gank.ShareElement;
@@ -90,7 +89,6 @@ public class GankActivity extends BaseActivity implements IGankView {
         ivHead.setImageDrawable(ShareElement.shareDrawable);
         ViewCompat.setTransitionName(ivHead, PanConfig.TRANSLATE_GIRL_VIEW);
 
-        Glide.with(this).load(meizi.url).centerCrop().into(ivHead);
         calendar = Calendar.getInstance();
         calendar.setTime(meizi.publishedAt);
     }

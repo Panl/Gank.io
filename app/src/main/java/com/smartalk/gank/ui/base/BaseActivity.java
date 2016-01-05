@@ -3,6 +3,7 @@ package com.smartalk.gank.ui.base;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 import butterknife.ButterKnife;
@@ -13,11 +14,14 @@ import butterknife.ButterKnife;
  */
 public class BaseActivity extends AppCompatActivity {
 
+    protected String TAG = this.getClass().getSimpleName();
+
     protected ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG,"onCreate");
     }
 
     @Override
@@ -31,8 +35,45 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG,"onRestart");
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG,"onStart");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG,"onResume");
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG,"onPause");
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG,"onStop");
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        Log.i(TAG,"onDestroy");
+
     }
 }
