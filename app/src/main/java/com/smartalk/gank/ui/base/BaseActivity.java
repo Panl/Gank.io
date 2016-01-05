@@ -1,10 +1,11 @@
 package com.smartalk.gank.ui.base;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+
+import com.smartalk.gank.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
 
@@ -12,17 +13,25 @@ import butterknife.ButterKnife;
  * 基础Activity
  * Created by panl on 15/12/24.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
     protected String TAG = this.getClass().getSimpleName();
+    protected T presenter;
 
-    protected ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(provideContentViewId());
+        ButterKnife.bind(this);
+        initPresenter();
         Log.i(TAG,"onCreate");
     }
+
+    protected abstract int provideContentViewId();
+
+    protected abstract void initPresenter();
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

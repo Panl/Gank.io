@@ -17,8 +17,8 @@ public class BasePresenter<T extends IBaseView> {
         this.iView = iView;
     }
 
-    public void initView(){
-        iView.initView();
+    public void init(){
+        iView.init();
     }
 
 }

@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +19,7 @@ import com.smartalk.gank.R;
 import com.smartalk.gank.ShareElement;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.MeizhiPresenter;
-import com.smartalk.gank.ui.base.BaseActivity;
+import com.smartalk.gank.ui.base.ToolBarActivity;
 import com.smartalk.gank.utils.DateUtil;
 import com.smartalk.gank.utils.FileUtil;
 import com.smartalk.gank.utils.TipsUtil;
@@ -30,7 +29,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-public class MeizhiActivity extends BaseActivity implements IMeizhiView {
+public class MeizhiActivity extends ToolBarActivity<MeizhiPresenter> implements IMeizhiView {
 
     Meizi meizi;
     PhotoViewAttacher attacher;
@@ -40,18 +39,24 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
 
     @Bind(R.id.iv_meizhi)
     ImageView ivMeizhi;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
     @Bind(R.id.app_bar)
     AppBarLayout appBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meizhi);
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected int provideContentViewId() {
+        return R.layout.activity_meizhi;
+    }
+
+    @Override
+    protected void initPresenter() {
         presenter = new MeizhiPresenter(this, this);
-        presenter.initView();
+        presenter.init();
     }
 
     private void getIntentData() {
@@ -65,12 +70,13 @@ public class MeizhiActivity extends BaseActivity implements IMeizhiView {
     }
 
     @Override
-    public void initView() {
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+    public void init() {
         appBar.setAlpha(0.6f);
         getIntentData();
+        initMeizhiView();
+    }
+
+    private void initMeizhiView(){
         setTitle(DateUtil.toDateTimeStr(meizi.publishedAt));
         ivMeizhi.setImageDrawable(ShareElement.shareDrawable);
         ViewCompat.setTransitionName(ivMeizhi, PanConfig.TRANSLATE_GIRL_VIEW);

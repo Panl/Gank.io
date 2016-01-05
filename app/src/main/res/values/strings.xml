@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Gank.lu</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_gank">GankActivity</string>
+    <string name="title_activity_gank">每日干货</string>
     <string name="gank_symbol">&#032; &#187;</string>
     <string name="load_failed">加载失败</string>
     <string name="retry">重试</string>
@@ -9,4 +9,9 @@
     <string name="meizi">meizi</string>
     <string name="action_save">保存</string>
     <string name="action_share">分享</string>
+    <string name="title_activity_battery">干货集中营</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

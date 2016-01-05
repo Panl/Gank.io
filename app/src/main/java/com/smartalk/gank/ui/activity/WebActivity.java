@@ -13,16 +13,15 @@ import com.smartalk.gank.PanConfig;
 import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Gank;
 import com.smartalk.gank.presenter.WebViewPresenter;
-import com.smartalk.gank.ui.base.BaseActivity;
+import com.smartalk.gank.ui.base.ToolBarActivity;
 import com.smartalk.gank.view.IWebView;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * webView not destroy yet?
  */
-public class WebActivity extends BaseActivity implements IWebView {
+public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IWebView {
 
 
     private Gank gank;
@@ -37,10 +36,18 @@ public class WebActivity extends BaseActivity implements IWebView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web);
-        ButterKnife.bind(this);
+
+    }
+
+    @Override
+    protected int provideContentViewId() {
+        return R.layout.activity_web;
+    }
+
+    @Override
+    protected void initPresenter() {
         presenter = new WebViewPresenter(this, this);
-        presenter.initView();
+        presenter.init();
     }
 
     public static void loadWebViewActivity(Context from, Gank gank) {
@@ -67,12 +74,7 @@ public class WebActivity extends BaseActivity implements IWebView {
 
 
     @Override
-    public void initView() {
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        if (actionBar != null)
-            actionBar.setDisplayHomeAsUpEnabled(true);
-
+    public void init() {
         gank = (Gank) getIntent().getSerializableExtra(PanConfig.GANK);
         setTitle(gank.desc);
         presenter.setWebViewSettings(webView, gank.url);

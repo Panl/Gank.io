@@ -67,7 +67,8 @@
             android:id="@+id/rv_gank"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="16dp" />
+            android:paddingBottom="40dp"
+            android:clipToPadding="false"/>
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

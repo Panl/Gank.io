@@ -1,6 +1,7 @@
 package com.smartalk.gank.http;
 
 import com.smartalk.gank.PanConfig;
+import com.smartalk.gank.model.BatteryData;
 import com.smartalk.gank.model.GankData;
 import com.smartalk.gank.model.MeiziData;
 import com.smartalk.gank.model.休息视频Data;
@@ -25,4 +26,7 @@ public interface GankRetrofit {
             @Path("year") int year,
             @Path("month") int month,
             @Path("day") int day);
+
+    @GET("data/{type}/"+PanConfig.GANK_SIZE+"/{page}")
+    Observable<BatteryData> getBatteryData(@Path("type") String type,@Path("page") int page);
 }

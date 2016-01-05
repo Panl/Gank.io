@@ -20,5 +20,6 @@ public class GankData extends BaseData{
         @SerializedName("拓展资源") public List<Gank> 拓展资源List;
         @SerializedName("瞎推荐") public List<Gank> 瞎推荐List;
         @SerializedName("App") public List<Gank> appList;
+        @SerializedName("前端") public List<Gank> 前端List;
     }
 }

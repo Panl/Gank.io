@@ -25,6 +25,7 @@
             android:layout_gravity="center"
             android:text="@string/gank_symbol"
             android:layout_marginLeft="16dp"
+            android:padding="5dp"
             android:textSize="18sp"/>
         <TextView
             android:id="@+id/tv_gank_desc"

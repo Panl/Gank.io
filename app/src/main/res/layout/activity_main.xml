@@ -9,7 +9,7 @@
 
     <include layout="@layout/view_toolbar" />
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/refresh_recycler_view" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

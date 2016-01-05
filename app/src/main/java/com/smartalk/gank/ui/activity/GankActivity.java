@@ -20,7 +20,7 @@ import com.smartalk.gank.model.entity.Gank;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.GankPresenter;
 import com.smartalk.gank.ui.adapter.GankAdapter;
-import com.smartalk.gank.ui.base.BaseActivity;
+import com.smartalk.gank.ui.base.ToolBarActivity;
 import com.smartalk.gank.utils.DateUtil;
 import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IGankView;
@@ -30,14 +30,12 @@ import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
-public class GankActivity extends BaseActivity implements IGankView {
+public class GankActivity extends ToolBarActivity<GankPresenter> implements IGankView {
 
     private Meizi meizi;
-    private GankPresenter presenter;
     private List<Gank> list;
     private GankAdapter adapter;
     private Calendar calendar;
@@ -65,36 +63,43 @@ public class GankActivity extends BaseActivity implements IGankView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gank);
-        ButterKnife.bind(this);
-        presenter = new GankPresenter(this, this);
-        presenter.initView();
-        presenter.fetchGankData(calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
-    public void initView() {
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+    protected int provideContentViewId() {
+        return R.layout.activity_gank;
+    }
+
+    @Override
+    protected void initPresenter() {
+        presenter = new GankPresenter(this, this);
+        presenter.init();
+    }
+
+    @Override
+    public void init() {
+        getIntentData();
+        initGankView();
+    }
+
+    private void initGankView() {
         list = new ArrayList<>();
         adapter = new GankAdapter(list, this);
         rvGank.setLayoutManager(new LinearLayoutManager(this));
         rvGank.setItemAnimator(new DefaultItemAnimator());
         rvGank.setAdapter(adapter);
-        getIntentData();
         setTitle(DateUtil.toDateString(meizi.publishedAt));
         ivHead.setImageDrawable(ShareElement.shareDrawable);
         ViewCompat.setTransitionName(ivHead, PanConfig.TRANSLATE_GIRL_VIEW);
-
-        calendar = Calendar.getInstance();
-        calendar.setTime(meizi.publishedAt);
     }
 
     private void getIntentData() {
         meizi = (Meizi) getIntent().getSerializableExtra(PanConfig.MEIZI);
+        calendar = Calendar.getInstance();
+        calendar.setTime(meizi.publishedAt);
+        presenter.fetchGankData(calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override

@@ -54,6 +54,7 @@ public class GankPresenter extends BasePresenter<IGankView> {
         List<Gank> mGankList = new ArrayList<>();
         if (results.androidList != null) mGankList.addAll(results.androidList);
         if (results.iOSList != null) mGankList.addAll(results.iOSList);
+        if (results.前端List != null) mGankList.addAll(results.前端List);
         if (results.appList != null) mGankList.addAll(results.appList);
         if (results.拓展资源List != null) mGankList.addAll(results.拓展资源List);
         if (results.瞎推荐List != null) mGankList.addAll(results.瞎推荐List);

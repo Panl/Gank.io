@@ -38,7 +38,11 @@ public class MainPresenter extends BasePresenter<IMainView> {
                 .subscribe(new Action1<MeiziData>() {
                     @Override
                     public void call(MeiziData meiziData) {
-                        iView.showMeiziList(meiziData.results);
+                        if (meiziData.results.size() == 0){
+                            iView.showNoMoreData();
+                        }else {
+                            iView.showMeiziList(meiziData.results);
+                        }
                         iView.hideProgress();
                     }
                 }, new Action1<Throwable>() {

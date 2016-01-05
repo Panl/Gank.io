@@ -35,10 +35,15 @@
         <activity
             android:name=".ui.activity.MeizhiActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.activity.BatteryActivity"
+            android:label="@string/title_activity_battery"
+            />
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
             android:value="f462388811fec5c192c255c3c7829f30" />
+
+
     </application>
 
 </manifest>

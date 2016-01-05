@@ -1,6 +1,6 @@
 package com.smartalk.gank.ui.activity;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +13,7 @@ import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.MainPresenter;
 import com.smartalk.gank.ui.adapter.MeiziAdapter;
-import com.smartalk.gank.ui.base.BaseActivity;
+import com.smartalk.gank.ui.base.ToolBarActivity;
 import com.smartalk.gank.ui.widget.LMRecyclerView;
 import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IMainView;
@@ -22,10 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements
+public class MainActivity extends ToolBarActivity<MainPresenter> implements
         SwipeRefreshLayout.OnRefreshListener, IMainView, LMRecyclerView.LoadMoreListener {
 
     private List<Meizi> meizis;
@@ -33,11 +32,11 @@ public class MainActivity extends BaseActivity implements
     private MainPresenter presenter;
     private int page = 1;
     private boolean isRefresh = true;
-    private boolean isLoading = false;
+    private boolean canLoading = true;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.rv_meizi)
+    @Bind(R.id.recycler_view)
     LMRecyclerView rvMeizi;
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -46,16 +45,25 @@ public class MainActivity extends BaseActivity implements
 
     @OnClick(R.id.fab)
     void fabClick() {
-        TipsUtil.showSnackTip(fab, "功能待开发...");
+        //TipsUtil.showSnackTip(fab, "功能待开发...");
+        Intent intent = new Intent(this, BatteryActivity.class);
+        startActivity(intent);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    protected int provideContentViewId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initPresenter() {
         presenter = new MainPresenter(this, this);
-        presenter.initView();
+        presenter.init();
+    }
+
+    @Override
+    protected boolean canBack() {
+        return false;
     }
 
     @Override
@@ -88,8 +96,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void initView() {
-        setSupportActionBar(toolbar);
+    public void init() {
         meizis = new ArrayList<>();
         adapter = new MeiziAdapter(this, meizis);
         rvMeizi.setLayoutManager(new LinearLayoutManager(this));
@@ -127,7 +134,7 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void showErrorView() {
-        isLoading = false;
+        canLoading = true;
         TipsUtil.showTipWithAction(fab, getString(R.string.load_failed), getString(R.string.retry), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,8 +144,14 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
+    public void showNoMoreData() {
+        canLoading = false;
+        TipsUtil.showSnackTip(fab, "全部加载完啦！");
+    }
+
+    @Override
     public void showMeiziList(List<Meizi> meiziList) {
-        isLoading = false;
+        canLoading = true;
         page++;
         if (isRefresh) {
             meizis.clear();
@@ -153,8 +166,10 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void loadMore() {
-        if (!isLoading)
+        if (canLoading) {
             presenter.fetchMeiziData(page);
-        isLoading = true;
+            canLoading = false;
+        }
+
     }
 }
