@@ -67,6 +67,7 @@ public class MeizhiActivity extends ToolBarActivity<MeizhiPresenter> implements 
     protected void onDestroy() {
         super.onDestroy();
         ShareElement.shareDrawable = null;
+        presenter.release();
     }
 
     @Override

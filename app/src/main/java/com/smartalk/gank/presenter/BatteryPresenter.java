@@ -12,4 +12,9 @@ public class BatteryPresenter extends BasePresenter {
         super(context, iView);
     }
 
+    @Override
+    public void release() {
+
+    }
+
 }

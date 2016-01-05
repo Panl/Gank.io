@@ -23,9 +23,14 @@ public class MainPresenter extends BasePresenter<IMainView> {
         super(context, iView);
     }
 
+    @Override
+    public void release() {
+        subscription.unsubscribe();
+    }
+
     public void fetchMeiziData(int page) {
         iView.showProgress();
-        Observable.zip(PanClient.getGankRetrofitInstance().getMeiziData(page),
+        subscription = Observable.zip(PanClient.getGankRetrofitInstance().getMeiziData(page),
                 PanClient.getGankRetrofitInstance().get休息视频Data(page),
                 new Func2<MeiziData, 休息视频Data, MeiziData>() {
                     @Override

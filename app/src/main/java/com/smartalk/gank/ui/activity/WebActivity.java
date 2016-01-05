@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.smartalk.gank.PanConfig;
@@ -26,6 +27,8 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
 
     private Gank gank;
     WebViewPresenter presenter;
+    LinearLayout contentView;
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.web_view)
@@ -78,6 +81,7 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
         gank = (Gank) getIntent().getSerializableExtra(PanConfig.GANK);
         setTitle(gank.desc);
         presenter.setWebViewSettings(webView, gank.url);
+        contentView = (LinearLayout) findViewById(R.id.web_content);
     }
 
 
@@ -105,9 +109,7 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
 
     @Override
     protected void onPause() {
-        if (webView != null) {
-            webView.onPause();
-        }
+        if (webView != null) webView.onPause();
         super.onPause();
     }
 
@@ -115,7 +117,10 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
     protected void onDestroy() {
         super.onDestroy();
         if (webView != null) {
+            contentView.removeView(webView);
+            webView.removeAllViews();
             webView.destroy();
         }
+        presenter.release();
     }
 }

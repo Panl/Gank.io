@@ -170,6 +170,11 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
             presenter.fetchMeiziData(page);
             canLoading = false;
         }
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.release();
     }
 }

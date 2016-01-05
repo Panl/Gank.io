@@ -139,6 +139,7 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        ShareElement.shareDrawable = null;
+        presenter.release();
     }
 }

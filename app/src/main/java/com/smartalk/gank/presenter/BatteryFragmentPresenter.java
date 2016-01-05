@@ -16,13 +16,19 @@ import rx.schedulers.Schedulers;
  */
 public class BatteryFragmentPresenter extends BasePresenter<IBatteryView> {
 
+
     public BatteryFragmentPresenter(Context context, IBatteryView iView) {
         super(context, iView);
     }
 
+    @Override
+    public void release() {
+        subscription.unsubscribe();
+    }
+
     public void loadGank(String type,int page){
         iView.showProgressBar();
-        PanClient.getGankRetrofitInstance().getBatteryData(type,page)
+        subscription = PanClient.getGankRetrofitInstance().getBatteryData(type,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<BatteryData>() {

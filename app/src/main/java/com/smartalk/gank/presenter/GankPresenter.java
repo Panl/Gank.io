@@ -25,9 +25,14 @@ public class GankPresenter extends BasePresenter<IGankView> {
         super(context, iView);
     }
 
+    @Override
+    public void release() {
+        subscription.unsubscribe();
+    }
+
     public void fetchGankData(int year, int month, int day) {
         iView.showProgressBar();
-        PanClient.getGankRetrofitInstance().getDailyData(year, month, day)
+        subscription = PanClient.getGankRetrofitInstance().getDailyData(year, month, day)
                 .map(new Func1<GankData, List<Gank>>() {
                     @Override
                     public List<Gank> call(GankData gankData) {
@@ -61,5 +66,7 @@ public class GankPresenter extends BasePresenter<IGankView> {
         if (results.休息视频List != null) mGankList.addAll(0, results.休息视频List);
         return mGankList;
     }
+
+
 
 }

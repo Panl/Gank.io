@@ -148,4 +148,10 @@ public class BatteryFragment extends BaseFragment<BatteryFragmentPresenter> impl
         page = 1;
         presenter.loadGank(type,page);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.release();
+    }
 }

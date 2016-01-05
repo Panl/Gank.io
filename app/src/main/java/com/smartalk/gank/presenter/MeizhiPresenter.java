@@ -15,7 +15,6 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
- *
  * Created by panl on 16/1/3.
  */
 public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
@@ -24,8 +23,14 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
         super(context, iView);
     }
 
+    @Override
+    public void release() {
+        if (subscription != null)
+            subscription.unsubscribe();
+    }
+
     public void saveMeizhiImage(final Bitmap bitmap, final String title) {
-        Observable.create(new Observable.OnSubscribe<Uri>() {
+        subscription = Observable.create(new Observable.OnSubscribe<Uri>() {
             @Override
             public void call(Subscriber<? super Uri> subscriber) {
                 Uri uri = FileUtil.saveBitmapToSDCard(bitmap, title);
