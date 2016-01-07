@@ -61,7 +61,8 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     private MeiziData createMeiziDataWith休息视频Desc(MeiziData meiziData, 休息视频Data data) {
-        for (int i = 0; i < meiziData.results.size(); i++) {
+        int size = Math.min(meiziData.results.size(),data.results.size());
+        for (int i = 0; i < size; i++) {
             meiziData.results.get(i).desc = meiziData.results.get(i).desc + "，" + data.results.get(i).desc;
             meiziData.results.get(i).who = data.results.get(i).who;
         }
