@@ -15,6 +15,7 @@ import com.smartalk.gank.presenter.MainPresenter;
 import com.smartalk.gank.ui.adapter.MeiziAdapter;
 import com.smartalk.gank.ui.base.ToolBarActivity;
 import com.smartalk.gank.ui.widget.LMRecyclerView;
+import com.smartalk.gank.utils.SPDataUtils;
 import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IMainView;
 
@@ -97,13 +98,14 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
 
     @Override
     public void init() {
-        meizis = new ArrayList<>();
+        meizis = SPDataUtils.getFirstPageGirls(this);
+        if (meizis == null) meizis = new ArrayList<>();
         adapter = new MeiziAdapter(this, meizis);
         rvMeizi.setLayoutManager(new LinearLayoutManager(this));
         rvMeizi.setAdapter(adapter);
         rvMeizi.applyFloatingActionButton(fab);
         rvMeizi.setLoadMoreListener(this);
-        swipeRefreshLayout.setColorSchemeResources(R.color.yellow, R.color.red, R.color.blue);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.yellow, R.color.blue);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
             @Override
@@ -154,6 +156,7 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
         canLoading = true;
         page++;
         if (isRefresh) {
+            SPDataUtils.saveFirstPageGrils(this, meiziList);
             meizis.clear();
             meizis.addAll(meiziList);
             adapter.notifyDataSetChanged();

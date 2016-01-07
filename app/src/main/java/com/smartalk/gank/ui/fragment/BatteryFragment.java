@@ -123,7 +123,7 @@ public class BatteryFragment extends BaseFragment<BatteryFragmentPresenter> impl
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.setLoadMoreListener(this);
-        swipeRefreshLayout.setColorSchemeResources(R.color.yellow, R.color.red, R.color.blue);
+        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.yellow, R.color.blue);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
             @Override
