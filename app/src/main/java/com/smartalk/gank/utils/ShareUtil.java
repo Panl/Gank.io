@@ -37,6 +37,6 @@ public class ShareUtil {
         intent.putExtra(Intent.EXTRA_TEXT, gank.desc + ":" + gank.url);
         intent.setType("text/plain");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(Intent.createChooser(intent,"分享干货到"));
+        context.startActivity(Intent.createChooser(intent,context.getString(R.string.share_gank_to)));
     }
 }
