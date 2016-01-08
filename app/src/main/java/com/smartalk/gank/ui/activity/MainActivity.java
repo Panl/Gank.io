@@ -15,7 +15,7 @@ import com.smartalk.gank.presenter.MainPresenter;
 import com.smartalk.gank.ui.adapter.MeiziAdapter;
 import com.smartalk.gank.ui.base.ToolBarActivity;
 import com.smartalk.gank.ui.widget.LMRecyclerView;
-import com.smartalk.gank.utils.SPDataUtils;
+import com.smartalk.gank.utils.SPDataUtil;
 import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IMainView;
 
@@ -98,7 +98,7 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
 
     @Override
     public void init() {
-        meizis = SPDataUtils.getFirstPageGirls(this);
+        meizis = SPDataUtil.getFirstPageGirls(this);
         if (meizis == null) meizis = new ArrayList<>();
         adapter = new MeiziAdapter(this, meizis);
         rvMeizi.setLayoutManager(new LinearLayoutManager(this));
@@ -156,7 +156,7 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
         canLoading = true;
         page++;
         if (isRefresh) {
-            SPDataUtils.saveFirstPageGrils(this, meiziList);
+            SPDataUtil.saveFirstPageGirls(this, meiziList);
             meizis.clear();
             meizis.addAll(meiziList);
             adapter.notifyDataSetChanged();

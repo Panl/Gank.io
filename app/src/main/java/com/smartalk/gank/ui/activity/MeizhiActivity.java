@@ -68,6 +68,7 @@ public class MeizhiActivity extends ToolBarActivity<MeizhiPresenter> implements 
         super.onDestroy();
         ShareElement.shareDrawable = null;
         presenter.release();
+        attacher.cleanup();
     }
 
     @Override
@@ -77,7 +78,7 @@ public class MeizhiActivity extends ToolBarActivity<MeizhiPresenter> implements 
         initMeizhiView();
     }
 
-    private void initMeizhiView(){
+    private void initMeizhiView() {
         setTitle(DateUtil.toDateTimeStr(meizi.publishedAt));
         ivMeizhi.setImageDrawable(ShareElement.shareDrawable);
         ViewCompat.setTransitionName(ivMeizhi, PanConfig.TRANSLATE_GIRL_VIEW);
@@ -118,6 +119,9 @@ public class MeizhiActivity extends ToolBarActivity<MeizhiPresenter> implements 
                 } else {
                     presenter.saveMeizhiImage(girl, DateUtil.toDateString(meizi.publishedAt).toString());
                 }
+                break;
+            case R.id.action_share:
+                presenter.shareGirlImage(this, girl, DateUtil.toDateString(meizi.publishedAt).toString());
                 break;
         }
         return super.onOptionsItemSelected(item);

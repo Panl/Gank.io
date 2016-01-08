@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,6 +23,7 @@ import com.smartalk.gank.presenter.GankPresenter;
 import com.smartalk.gank.ui.adapter.GankAdapter;
 import com.smartalk.gank.ui.base.ToolBarActivity;
 import com.smartalk.gank.utils.DateUtil;
+import com.smartalk.gank.utils.ShareUtil;
 import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IGankView;
 
@@ -134,6 +136,16 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_gank, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_share:
+                ShareUtil.shareApp(this);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
