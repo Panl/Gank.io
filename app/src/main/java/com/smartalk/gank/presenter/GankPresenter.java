@@ -50,6 +50,7 @@ public class GankPresenter extends BasePresenter<IGankView> {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
+                        iView.hideProgressBar();
                         iView.showErrorView();
                     }
                 });
