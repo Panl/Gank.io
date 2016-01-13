@@ -7,6 +7,5 @@
         android:orderInCategory="100"
         android:icon="@mipmap/ic_share"
         android:title="@string/action_share"
-        android:actionProviderClass="android.widget.ShareActionProvider"
         app:showAsAction="always" />
 </menu>
