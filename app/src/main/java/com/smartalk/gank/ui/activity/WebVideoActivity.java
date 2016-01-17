@@ -62,6 +62,11 @@ public class WebVideoActivity extends ToolBarActivity<WebVideoPresenter> impleme
     }
 
     @Override
+    public void openFailed() {
+
+    }
+
+    @Override
     public void init() {
         toolbar.setBackgroundColor(Color.TRANSPARENT);
         toolbar.setBackgroundResource(R.drawable.transparent_bg);

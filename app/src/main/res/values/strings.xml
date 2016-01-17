@@ -28,4 +28,9 @@
         \n\n数据来源: 干货集中营 http://gank.io/api</string>
     <string name="thanks">特别感谢</string>
     <string name="thank_content"><b>daimajia</b>\n干货集中营 : http://gank.io\n\n<b>drakeet</b>\n妹纸&#038;gank·io : https://github.com/drakeet/Meizhi\n\n<b>maoruibin</b>\nGankDaily : https://github.com/maoruibin/GankDaily</string>
+    <string name="action_copy_url">复制地址</string>
+    <string name="action_open_in_browser">打开链接</string>
+    <string name="action_refresh">刷新页面</string>
+    <string name="open_url_failed">打开失败，没有找到可以打开该链接的其它应用o(︶︿︶)o唉</string>
+    <string name="copy_success">复制成功</string>
 </resources>

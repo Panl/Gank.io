@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -15,6 +17,7 @@ import com.smartalk.gank.R;
 import com.smartalk.gank.model.entity.Gank;
 import com.smartalk.gank.presenter.WebViewPresenter;
 import com.smartalk.gank.ui.base.ToolBarActivity;
+import com.smartalk.gank.utils.TipsUtil;
 import com.smartalk.gank.view.IWebView;
 
 import butterknife.Bind;
@@ -75,6 +78,11 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
         setTitle(title);
     }
 
+    @Override
+    public void openFailed() {
+        TipsUtil.showSnackTip(webView,getString(R.string.open_url_failed));
+    }
+
 
     @Override
     public void init() {
@@ -99,6 +107,29 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_web,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_refresh:
+                presenter.refresh(webView);
+                break;
+            case R.id.action_copy_url:
+                presenter.copyUrl(gank.url);
+                break;
+            case R.id.action_open_in_browser:
+                presenter.openInBrowser(gank.url);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

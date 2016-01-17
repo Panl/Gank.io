@@ -10,4 +10,6 @@ public interface IWebView extends IBaseView {
 
     void setWebTitle(String title);
 
+    void openFailed();
+
 }
