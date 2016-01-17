@@ -3,12 +3,10 @@ package com.smartalk.gank.ui.activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -34,13 +32,10 @@ public class MeizhiActivity extends ToolBarActivity<MeizhiPresenter> implements 
     Meizi meizi;
     PhotoViewAttacher attacher;
     MeizhiPresenter presenter;
-    boolean isToolBarHiding = false;
     Bitmap girl;
 
     @Bind(R.id.iv_meizhi)
     ImageView ivMeizhi;
-    @Bind(R.id.app_bar)
-    AppBarLayout appBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,14 +120,6 @@ public class MeizhiActivity extends ToolBarActivity<MeizhiPresenter> implements 
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void hideOrShowToolBar() {
-        appBar.animate()
-                .translationY(isToolBarHiding ? 0 : -appBar.getHeight())
-                .setInterpolator(new DecelerateInterpolator(2))
-                .start();
-        isToolBarHiding = !isToolBarHiding;
     }
 
 

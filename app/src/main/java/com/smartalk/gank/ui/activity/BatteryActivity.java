@@ -2,7 +2,6 @@ package com.smartalk.gank.ui.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.smartalk.gank.R;
@@ -29,13 +28,6 @@ public class BatteryActivity extends ToolBarActivity<BatteryPresenter> implement
     protected void initPresenter() {
         presenter = new BatteryPresenter(this,this);
         presenter.init();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_battery, menu);
-        return true;
     }
 
     @Override

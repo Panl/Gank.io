@@ -1,14 +1,13 @@
 package com.smartalk.gank.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,12 +41,8 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
     private GankAdapter adapter;
     private Calendar calendar;
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout toolbarLayout;
-    @Bind(R.id.app_bar)
-    AppBarLayout appBar;
     @Bind(R.id.fab)
     FloatingActionButton fab;
     @Bind(R.id.iv_head)
@@ -59,7 +54,10 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
 
     @OnClick(R.id.fab)
     void fabClick() {
-        TipsUtil.showSnackTip(fab, "功能待开发...");
+        //TipsUtil.showSnackTip(fab, "功能待开发...");
+        Intent intent = new Intent(this, WebVideoActivity.class);
+        intent.putExtra(PanConfig.GANK, list.get(0));
+        startActivity(intent);
     }
 
     @Override
@@ -93,6 +91,7 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
         setTitle(DateUtil.toDateString(meizi.publishedAt));
         ivHead.setImageDrawable(ShareElement.shareDrawable);
         ViewCompat.setTransitionName(ivHead, PanConfig.TRANSLATE_GIRL_VIEW);
+        fab.setClickable(false);
     }
 
     private void getIntentData() {
@@ -108,6 +107,7 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
     public void showGankList(List<Gank> gankList) {
         list.addAll(gankList);
         adapter.notifyDataSetChanged();
+        fab.setClickable(true);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_share:
                 ShareUtil.shareApp(this);
                 break;
