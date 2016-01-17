@@ -54,10 +54,13 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
 
     @OnClick(R.id.fab)
     void fabClick() {
-        //TipsUtil.showSnackTip(fab, "功能待开发...");
-        Intent intent = new Intent(this, WebVideoActivity.class);
-        intent.putExtra(PanConfig.GANK, list.get(0));
-        startActivity(intent);
+        if (list.size() > 0 && list.get(0).type.equals("休息视频")) {
+            Intent intent = new Intent(this, WebVideoActivity.class);
+            intent.putExtra(PanConfig.GANK, list.get(0));
+            startActivity(intent);
+        }else {
+            TipsUtil.showSnackTip(fab,"出了一点小问题o(︶︿︶)o唉");
+        }
     }
 
     @Override

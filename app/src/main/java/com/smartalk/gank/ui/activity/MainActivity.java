@@ -1,6 +1,5 @@
 package com.smartalk.gank.ui.activity;
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,9 +45,7 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
 
     @OnClick(R.id.fab)
     void fabClick() {
-        //TipsUtil.showSnackTip(fab, "功能待开发...");
-        Intent intent = new Intent(this, BatteryActivity.class);
-        startActivity(intent);
+      presenter.toBatteryActivity();
     }
 
     @Override
@@ -75,8 +72,10 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
-            System.out.print("hello");
+        switch (item.getItemId()){
+            case R.id.action_about:
+                presenter.toAboutActivity();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

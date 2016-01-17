@@ -1,10 +1,13 @@
 package com.smartalk.gank.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.smartalk.gank.http.PanClient;
 import com.smartalk.gank.model.MeiziData;
 import com.smartalk.gank.model.休息视频Data;
+import com.smartalk.gank.ui.activity.AboutActivity;
+import com.smartalk.gank.ui.activity.BatteryActivity;
 import com.smartalk.gank.view.IMainView;
 
 import rx.Observable;
@@ -67,6 +70,16 @@ public class MainPresenter extends BasePresenter<IMainView> {
             meiziData.results.get(i).who = data.results.get(i).who;
         }
         return meiziData;
+    }
+
+    public void toBatteryActivity(){
+        Intent intent = new Intent(context, BatteryActivity.class);
+        context.startActivity(intent);
+    }
+
+    public void toAboutActivity(){
+        Intent intent = new Intent(context, AboutActivity.class);
+        context.startActivity(intent);
     }
 
 }

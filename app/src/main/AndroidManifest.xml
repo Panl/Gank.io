@@ -28,9 +28,9 @@
         </activity>
         <activity
             android:name=".ui.activity.GankActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_activity_gank"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activity.WebActivity" />
         <activity
@@ -39,14 +39,18 @@
         <activity
             android:name=".ui.activity.BatteryActivity"
             android:label="@string/title_activity_battery" />
-
-        <activity android:name=".ui.activity.WebVideoActivity"
-            android:screenOrientation="landscape"
-            android:hardwareAccelerated="true"/>
+        <activity
+            android:name=".ui.activity.WebVideoActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="landscape" />
 
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
             android:value="f462388811fec5c192c255c3c7829f30" />
+
+        <activity
+            android:name=".ui.activity.AboutActivity"
+            />
     </application>
 
 </manifest>
