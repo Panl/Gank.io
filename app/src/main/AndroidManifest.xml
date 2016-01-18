@@ -44,13 +44,18 @@
             android:hardwareAccelerated="true"
             android:screenOrientation="landscape" />
 
+        <activity android:name=".ui.activity.AboutActivity" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="@string/umeng_key"/>
+
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
-            android:value="f462388811fec5c192c255c3c7829f30" />
-
-        <activity
-            android:name=".ui.activity.AboutActivity"
-            />
+            android:value="@string/bug_hd_sdk_general_key" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 
 </manifest>

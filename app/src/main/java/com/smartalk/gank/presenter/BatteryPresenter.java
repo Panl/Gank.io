@@ -7,7 +7,7 @@ import com.smartalk.gank.view.IBaseView;
 /**
  * Created by panl on 16/1/5.
  */
-public class BatteryPresenter extends BasePresenter {
+public class BatteryPresenter extends BasePresenter<IBaseView> {
     public BatteryPresenter(Context context, IBaseView iView) {
         super(context, iView);
     }

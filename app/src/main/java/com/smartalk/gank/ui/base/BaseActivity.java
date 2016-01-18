@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.smartalk.gank.presenter.BasePresenter;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 
@@ -60,6 +61,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         Log.i(TAG,"onResume");
 
     }
@@ -67,6 +69,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onPause() {
         super.onPause();
+        MobclickAgent.onPause(this);
         Log.i(TAG,"onPause");
 
     }

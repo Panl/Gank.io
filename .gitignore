@@ -2,6 +2,8 @@
 .gradle
 .idea
 /local.properties
+/config.properties
+/Gank.jks
 .DS_Store
 /build
 /captures

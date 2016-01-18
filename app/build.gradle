@@ -1,5 +1,15 @@
 apply plugin: 'com.android.application'
 
+def releaseTime(){
+    return new Date().format("yyyy-MM-dd",TimeZone.getTimeZone("UTC"))
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('config.properties').newDataInputStream())
+
+def keyStore = file(properties.getProperty("STORE_PATH"))
+
+
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
@@ -9,14 +19,53 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
-    buildTypes {
+
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            storeFile keyStore
+            storePassword properties.getProperty("STORE_PASSWORD")
+            keyAlias properties.getProperty("KEY_ALIAS")
+            keyPassword properties.getProperty("KEY_PASSWORD")
         }
     }
+
+    productFlavors{
+        xiaomi{
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"xiaomi"]
+        }
+        wandoujia{
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"wandoujia"]
+        }
+        fir{
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "fir"]
+        }
+    }
+
+
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (keyStore.exists()){
+                println "哈哈，用的自己的签名文件哦"
+            }
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "Gank_io_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+    }
+
+
 }
 
 dependencies {
@@ -37,4 +86,5 @@ dependencies {
     compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'im.fir:fir-sdk:latest.integration@aar'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
