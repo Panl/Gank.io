@@ -22,16 +22,16 @@
         <RelativeLayout
             android:id="@+id/rl_introduce"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/text_margin">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
                 android:autoLink="web"
+                android:lineSpacingExtra="2dp"
                 android:text="@string/introduce"
                 android:textColor="@color/black"
-                android:lineSpacingExtra="2dp"
                 android:textSize="13sp" />
 
         </RelativeLayout>
@@ -53,8 +53,7 @@
         <RelativeLayout
             android:id="@+id/rl_developer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/iv_avatar"
@@ -91,6 +90,7 @@
             android:layout_height="1px"
             android:layout_marginTop="12dp"
             android:background="@color/grey" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,15 +102,16 @@
         <RelativeLayout
             android:id="@+id/rl_thanks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/text_margin">
+            android:layout_height="wrap_content">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/text_margin"
                 android:autoLink="web"
+                android:lineSpacingExtra="2dp"
                 android:text="@string/thank_content"
                 android:textColor="@color/black"
-                android:lineSpacingExtra="2dp"
                 android:textSize="13sp" />
 
         </RelativeLayout>
@@ -133,12 +134,12 @@
             android:id="@+id/rl_open_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:padding="16dp">
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
                 android:text="@string/open_source_libraries_list"
                 android:textColor="@color/black"
                 android:textSize="13sp"

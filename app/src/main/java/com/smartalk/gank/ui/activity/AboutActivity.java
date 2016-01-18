@@ -2,6 +2,8 @@ package com.smartalk.gank.ui.activity;
 
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -9,9 +11,11 @@ import com.smartalk.gank.BuildConfig;
 import com.smartalk.gank.R;
 import com.smartalk.gank.presenter.AboutPresenter;
 import com.smartalk.gank.ui.base.ToolBarActivity;
+import com.smartalk.gank.utils.ShareUtil;
 import com.smartalk.gank.view.IBaseView;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class AboutActivity extends ToolBarActivity<AboutPresenter> implements IBaseView {
 
@@ -31,6 +35,11 @@ public class AboutActivity extends ToolBarActivity<AboutPresenter> implements IB
     @Bind(R.id.rl_thanks)
     RelativeLayout rlThanks;
 
+    @OnClick(R.id.fab)
+    void fabClick(){
+        presenter.starInMarket();
+    }
+
     @Override
     protected int provideContentViewId() {
         return R.layout.activity_about;
@@ -44,12 +53,27 @@ public class AboutActivity extends ToolBarActivity<AboutPresenter> implements IB
 
     @Override
     public void init() {
-        toolbarLayout.setTitle("关于" + getString(R.string.app_name));
-        tvAppVersion.setText("Version: " + BuildConfig.VERSION_NAME);
+        toolbarLayout.setTitle(getString(R.string.about_app));
+        tvAppVersion.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
         presenter.clipViewToCornerCard(rlIntroduce);
         presenter.clipViewToCornerCard(rlDeveloper);
         presenter.clipViewToCornerCard(rlOpenSource);
         presenter.clipViewToCornerCard(rlThanks);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_about,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_share:
+                ShareUtil.shareApp(this);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

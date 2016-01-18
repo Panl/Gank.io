@@ -39,7 +39,7 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE:"wandoujia"]
         }
         fir{
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "fir"]
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"fir"]
         }
     }
 
@@ -50,9 +50,6 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            if (keyStore.exists()){
-                println "哈哈，用的自己的签名文件哦"
-            }
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
@@ -85,6 +82,5 @@ dependencies {
     compile 'com.github.mthli:Slice:v1.0'
     compile 'com.github.castorflex.smoothprogressbar:library:1.1.0'
     compile 'com.commit451:PhotoView:1.2.4'
-    compile 'im.fir:fir-sdk:latest.integration@aar'
     compile 'com.umeng.analytics:analytics:latest.integration'
 }

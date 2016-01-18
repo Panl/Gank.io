@@ -10,7 +10,7 @@
     <string name="action_share">分享</string>
     <string name="title_activity_battery">干货集中营</string>
     <string name="girl_reject_your_request">禽兽,妹子拒绝了您的请求(failed)!</string>
-    <string name="share_app">发现了一款看妹子的小app「Gank.io」,  同时有很多程序员干货哦，^_^，下载地址：https://panl.github.io/</string>
+    <string name="share_app">发现了一款看妹子的小app「Gank.io」,  同时有很多程序员干货哦，^_^，下载地址：http://fir.im/Gank</string>
     <string name="share_app_to_friend">分享「Gank.io」给朋友</string>
     <string name="share_gank_to">分享干货到</string>
     <string name="action_about">关于Gank.io</string>
@@ -33,4 +33,10 @@
     <string name="action_refresh">刷新页面</string>
     <string name="open_url_failed">打开失败，没有找到可以打开该链接的其它应用o(︶︿︶)o唉</string>
     <string name="copy_success">复制成功</string>
+    <string name="about_app">关于Gank.io</string>
+    <string name="version">Version: %s</string>
+    <string name="all_loaded">全部加载完啦！</string>
+    <string name="save_girl_successfully">该妹子已经躺在您的图库中了!</string>
+    <string name="share_girl_to">分享妹纸到</string>
+    <string name="market">market://details?id=%s</string>
 </resources>

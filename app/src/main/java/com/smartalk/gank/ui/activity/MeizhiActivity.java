@@ -110,13 +110,13 @@ public class MeizhiActivity extends ToolBarActivity<MeizhiPresenter> implements 
         switch (item.getItemId()) {
             case R.id.action_save:
                 if (!FileUtil.isSDCardEnable() || girl == null) {
-                    TipsUtil.showSnackTip(ivMeizhi, "禽兽,妹子拒绝了您的请求(failed)!");
+                    TipsUtil.showSnackTip(ivMeizhi, getString(R.string.girl_reject_your_request));
                 } else {
                     presenter.saveMeizhiImage(girl, DateUtil.toDateString(meizi.publishedAt).toString());
                 }
                 break;
             case R.id.action_share:
-                presenter.shareGirlImage(this, girl, DateUtil.toDateString(meizi.publishedAt).toString());
+                presenter.shareGirlImage(girl, DateUtil.toDateString(meizi.publishedAt).toString());
                 break;
         }
         return super.onOptionsItemSelected(item);

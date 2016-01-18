@@ -98,7 +98,7 @@ public class BatteryFragment extends BaseFragment<BatteryFragmentPresenter> impl
     @Override
     public void showNoMoreData() {
         canLoading = false;
-        TipsUtil.showSnackTip(recyclerView, "全部加载完啦！");
+        TipsUtil.showSnackTip(recyclerView, getString(R.string.all_loaded));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class BatteryFragment extends BaseFragment<BatteryFragmentPresenter> impl
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         recyclerView.setLoadMoreListener(this);
-        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.yellow, R.color.blue);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.blue);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
             @Override

@@ -1,6 +1,5 @@
 package com.smartalk.gank.ui.activity;
 
-import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -77,9 +76,11 @@ public class WebVideoActivity extends ToolBarActivity<WebVideoPresenter> impleme
         setTitle(gank.desc);
         presenter.loadWebVideo(webVideo, gank.url);
     }
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void hideToolBarElevation(){
-        appBar.setElevation(0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            appBar.setElevation(0);
+        }
     }
 
     @Override

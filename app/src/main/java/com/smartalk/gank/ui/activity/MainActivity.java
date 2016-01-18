@@ -96,7 +96,7 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
         rvMeizi.setAdapter(adapter);
         rvMeizi.applyFloatingActionButton(fab);
         rvMeizi.setLoadMoreListener(this);
-        swipeRefreshLayout.setColorSchemeResources(R.color.red, R.color.yellow, R.color.blue);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.blue);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
             @Override
@@ -139,7 +139,7 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
     @Override
     public void showNoMoreData() {
         canLoading = false;
-        TipsUtil.showSnackTip(fab, "全部加载完啦！");
+        TipsUtil.showSnackTip(fab, getString(R.string.all_loaded));
     }
 
     @Override

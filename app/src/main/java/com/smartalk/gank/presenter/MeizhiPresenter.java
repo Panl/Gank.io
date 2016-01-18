@@ -37,7 +37,7 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
             public void call(Subscriber<? super Uri> subscriber) {
                 Uri uri = FileUtil.saveBitmapToSDCard(bitmap, title);
                 if (uri == null) {
-                    subscriber.onError(new Exception("禽兽,妹子拒绝了您的请求(failed)!"));
+                    subscriber.onError(new Exception(context.getString(R.string.girl_reject_your_request)));
                 } else {
                     subscriber.onNext(uri);
                     subscriber.onCompleted();
@@ -51,17 +51,17 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
                     public void call(Uri uri) {
                         Intent scannerIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
                         context.sendBroadcast(scannerIntent);
-                        iView.showSaveGirlResult("该妹子已经躺在您的图库中了!");
+                        iView.showSaveGirlResult(context.getString(R.string.save_girl_successfully));
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        iView.showSaveGirlResult("禽兽,妹子拒绝了您的请求(failed)!");
+                        iView.showSaveGirlResult(context.getString(R.string.girl_reject_your_request));
                     }
                 });
     }
 
-    public void shareGirlImage(final Context context,final Bitmap bitmap,final String title){
+    public void shareGirlImage(final Bitmap bitmap,final String title){
         Observable.create(new Observable.OnSubscribe<Uri>(){
 
             @Override
@@ -79,7 +79,7 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
                 .subscribe(new Action1<Uri>() {
                     @Override
                     public void call(Uri uri) {
-                        ShareUtil.shareImage(context,uri,"分享妹纸到");
+                        ShareUtil.shareImage(context,uri,context.getString(R.string.share_girl_to));
                     }
                 });
     };
