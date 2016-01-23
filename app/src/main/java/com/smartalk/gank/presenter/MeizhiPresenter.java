@@ -79,10 +79,15 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
                 .subscribe(new Action1<Uri>() {
                     @Override
                     public void call(Uri uri) {
-                        ShareUtil.shareImage(context,uri,context.getString(R.string.share_girl_to));
+                        ShareUtil.shareImage(context, uri, context.getString(R.string.share_girl_to));
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        iView.showSaveGirlResult(context.getString(R.string.girl_reject_your_request));
                     }
                 });
-    };
+    }
 
 
 }
