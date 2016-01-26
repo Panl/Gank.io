@@ -16,6 +16,7 @@
 本项目完全开源，由Panl完成，是学习RxJava，Retrofit等优秀开源框架以及MVP设计模式的产物，项目借鉴了[**drakeet**](https://github.com/drakeet)的开源项目[**Meizhi**](https://github.com/drakeet/Meizhi)以及[**maoruibin**](https://github.com/maoruibin)的开源项目[**GankDaily**](https://github.com/maoruibin/GankDaily)，收获很多，感谢开源社区。由于水平有限，项目中难免有所纰漏，如果有问题请与我联系 panlei106@gmail.com  
 
 数据来源: [**daimajia**](https://github.com/daimajia)的干货集中营 [http://gank.io/api](http://gank.io/api)
+
 ### 特别感谢：
 - [**drakeet/Meizhi**](https://github.com/drakeet/Meizhi)
 - [**maoruibin/GankDaily**](https://github.com/maoruibin/GankDaily)
