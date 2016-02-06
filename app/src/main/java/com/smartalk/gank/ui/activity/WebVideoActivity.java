@@ -3,6 +3,8 @@ package com.smartalk.gank.ui.activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,6 +16,7 @@ import com.smartalk.gank.model.entity.Gank;
 import com.smartalk.gank.presenter.WebVideoPresenter;
 import com.smartalk.gank.ui.base.ToolBarActivity;
 import com.smartalk.gank.ui.widget.LoveVideoView;
+import com.smartalk.gank.utils.ShareUtil;
 import com.smartalk.gank.view.IWebVideo;
 
 import butterknife.Bind;
@@ -77,16 +80,33 @@ public class WebVideoActivity extends ToolBarActivity<WebVideoPresenter> impleme
         presenter.loadWebVideo(webVideo, gank.url);
     }
 
-    private void hideToolBarElevation(){
+    private void hideToolBarElevation() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBar.setElevation(0);
         }
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_video, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                if (gank != null)
+                    ShareUtil.shareVideo(this, gank);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        if (webVideo != null){
+        if (webVideo != null) {
             webVideo.resumeTimers();
             webVideo.onResume();
         }
@@ -95,7 +115,7 @@ public class WebVideoActivity extends ToolBarActivity<WebVideoPresenter> impleme
     @Override
     protected void onPause() {
         super.onPause();
-        if (webVideo != null){
+        if (webVideo != null) {
             webVideo.onPause();
             webVideo.pauseTimers();
         }
@@ -104,7 +124,7 @@ public class WebVideoActivity extends ToolBarActivity<WebVideoPresenter> impleme
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (webVideo != null){
+        if (webVideo != null) {
             webVideo.setWebViewClient(null);
             webVideo.setWebChromeClient(null);
             webVideo.destroy();

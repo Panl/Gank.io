@@ -34,9 +34,18 @@ public class ShareUtil {
     public static void shareGank(Context context, Gank gank) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_TEXT, gank.desc + ":" + gank.url);
+        intent.putExtra(Intent.EXTRA_TEXT, gank.desc + gank.url + context.getString(R.string.download_gank));
         intent.setType("text/plain");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(Intent.createChooser(intent,context.getString(R.string.share_gank_to)));
+        context.startActivity(Intent.createChooser(intent, context.getString(R.string.share_gank_to)));
+    }
+
+    public static void shareVideo(Context context, Gank gank) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, gank.desc + gank.url + context.getString(R.string.download_gank));
+        intent.setType("text/plain");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(Intent.createChooser(intent, context.getString(R.string.share_video_to)));
     }
 }

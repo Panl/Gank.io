@@ -43,6 +43,7 @@
         <activity
             android:name=".ui.activity.WebVideoActivity"
             android:hardwareAccelerated="true"
+            android:configChanges="orientation|screenSize"
             android:screenOrientation="landscape" />
 
         <activity android:name=".ui.activity.AboutActivity"
