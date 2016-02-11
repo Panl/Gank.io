@@ -9,7 +9,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.smartalk.gank.R;
+import com.smartalk.gank.model.entity.Gank;
 import com.smartalk.gank.utils.AndroidUtil;
+import com.smartalk.gank.utils.ShareUtil;
 import com.smartalk.gank.view.IWebView;
 
 /**
@@ -38,12 +40,12 @@ public class WebViewPresenter extends BasePresenter<IWebView> {
         webView.loadUrl(url);
     }
 
-    public void refresh(WebView webView){
+    public void refresh(WebView webView) {
         webView.reload();
     }
 
-    public void copyUrl(String text){
-        AndroidUtil.copyToClipBoard(context,text,context.getString(R.string.copy_success));
+    public void copyUrl(String text) {
+        AndroidUtil.copyToClipBoard(context, text, context.getString(R.string.copy_success));
     }
 
     public void openInBrowser(String url) {
@@ -54,8 +56,13 @@ public class WebViewPresenter extends BasePresenter<IWebView> {
         if (intent.resolveActivity(context.getPackageManager()) != null) {
             context.startActivity(intent);
         } else {
-           iView.openFailed();
+            iView.openFailed();
         }
+    }
+
+    public void moreOperation(Gank gank) {
+        if (gank != null)
+            ShareUtil.shareGank(context, gank);
     }
 
 

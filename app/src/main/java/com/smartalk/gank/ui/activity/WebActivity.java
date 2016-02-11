@@ -80,7 +80,7 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
 
     @Override
     public void openFailed() {
-        TipsUtil.showSnackTip(webView,getString(R.string.open_url_failed));
+        TipsUtil.showSnackTip(webView, getString(R.string.open_url_failed));
     }
 
 
@@ -112,13 +112,13 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_web,menu);
+        getMenuInflater().inflate(R.menu.menu_web, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_refresh:
                 presenter.refresh(webView);
                 break;
@@ -127,6 +127,9 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
                 break;
             case R.id.action_open_in_browser:
                 presenter.openInBrowser(gank.url);
+                break;
+            case R.id.action_share_gank:
+                presenter.moreOperation(gank);
                 break;
         }
         return super.onOptionsItemSelected(item);

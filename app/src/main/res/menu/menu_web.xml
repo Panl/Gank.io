@@ -16,4 +16,10 @@
         android:title="@string/action_open_in_browser"
         android:orderInCategory="100"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_share_gank"
+        android:title="@string/action_more_operation"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
 </menu>
