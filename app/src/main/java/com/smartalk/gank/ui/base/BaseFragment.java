@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.smartalk.gank.GankApp;
 import com.smartalk.gank.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
@@ -34,5 +35,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        GankApp.getRefWatcher(getActivity()).watch(this);
     }
 }
