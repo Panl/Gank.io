@@ -42,4 +42,5 @@
     <string name="market">market://details?id=%s</string>
     <string name="share_video_to">分享视频到</string>
     <string name="action_more_operation">更多操作</string>
+    <string name="something_wrong">出了一点小问题o(︶︿︶)o唉</string>
 </resources>

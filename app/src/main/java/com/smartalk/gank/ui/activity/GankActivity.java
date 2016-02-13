@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.smartalk.gank.model.entity.Meizi;
 import com.smartalk.gank.presenter.GankPresenter;
 import com.smartalk.gank.ui.adapter.GankAdapter;
 import com.smartalk.gank.ui.base.ToolBarActivity;
+import com.smartalk.gank.utils.AndroidUtil;
 import com.smartalk.gank.utils.DateUtil;
 import com.smartalk.gank.utils.ShareUtil;
 import com.smartalk.gank.utils.TipsUtil;
@@ -54,13 +56,29 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
 
     @OnClick(R.id.fab)
     void fabClick() {
-        if (list.size() > 0 && list.get(0).type.equals("休息视频")) {
-            Intent intent = new Intent(this, WebVideoActivity.class);
-            intent.putExtra(PanConfig.GANK, list.get(0));
-            startActivity(intent);
+        if (!AndroidUtil.isWIFIConnected(this)) {
+            TipsUtil.showTipWithAction(fab, "你使用的不是wifi网络，要继续吗？", "继续", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (list.size() > 0 && list.get(0).type.equals("休息视频")) {
+                        Intent intent = new Intent(GankActivity.this, WebVideoActivity.class);
+                        intent.putExtra(PanConfig.GANK, list.get(0));
+                        startActivity(intent);
+                    } else {
+                        TipsUtil.showSnackTip(fab, getString(R.string.something_wrong));
+                    }
+                }
+            }, Snackbar.LENGTH_LONG);
         }else {
-            TipsUtil.showSnackTip(fab,"出了一点小问题o(︶︿︶)o唉");
+            if (list.size() > 0 && list.get(0).type.equals("休息视频")) {
+                Intent intent = new Intent(GankActivity.this, WebVideoActivity.class);
+                intent.putExtra(PanConfig.GANK, list.get(0));
+                startActivity(intent);
+            } else {
+                TipsUtil.showSnackTip(fab, getString(R.string.something_wrong));
+            }
         }
+
     }
 
     @Override
