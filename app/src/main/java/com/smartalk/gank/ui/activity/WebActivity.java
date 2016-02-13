@@ -154,6 +154,7 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
             contentView.removeView(webView);
             webView.removeAllViews();
             webView.destroy();
+            webView = null;
         }
         presenter.release();
     }

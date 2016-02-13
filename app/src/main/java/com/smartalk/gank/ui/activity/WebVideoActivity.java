@@ -128,6 +128,7 @@ public class WebVideoActivity extends ToolBarActivity<WebVideoPresenter> impleme
             webVideo.setWebViewClient(null);
             webVideo.setWebChromeClient(null);
             webVideo.destroy();
+            webVideo = null;
         }
     }
 }
