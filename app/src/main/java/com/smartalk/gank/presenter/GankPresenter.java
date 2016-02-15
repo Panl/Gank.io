@@ -28,6 +28,7 @@ public class GankPresenter extends BasePresenter<IGankView> {
     @Override
     public void release() {
         subscription.unsubscribe();
+        subscription = null;
     }
 
     public void fetchGankData(int year, int month, int day) {

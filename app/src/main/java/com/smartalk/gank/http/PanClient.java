@@ -18,6 +18,10 @@ public class PanClient {
 
     private static Retrofit retrofit;
 
+    private PanClient(){
+
+    }
+
     static {
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")

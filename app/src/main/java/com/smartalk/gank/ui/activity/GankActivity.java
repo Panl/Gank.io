@@ -175,5 +175,6 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
         ShareElement.shareDrawable = null;
         list = null;
         presenter.release();
+        presenter = null;
     }
 }
