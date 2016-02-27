@@ -1,6 +1,8 @@
 # Gank.io
 >gank.io unofficial client - RxJava、Retrofit &amp; MVP
 
+- iOS 版本的客户端请移步[Gank.lu](https://github.com/Panl/Gank.lu)
+
 ![icon](/app/src/main/res/mipmap-xxxhdpi/ic_gank_lu.png)  
 
 - **下载地址** [fir.im](http://fir.im/Gank)
