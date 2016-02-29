@@ -29,7 +29,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.github.mthli.slice.Slice;
 
 /**
  * 显示妹子的Adapter
@@ -127,15 +126,7 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
             super(itemView);
             card = itemView;
             ButterKnife.bind(this, itemView);
-            initSlice(card);
         }
 
-        private void initSlice(View view) {
-            Slice slice = new Slice(view);
-            slice.setElevation(2.5f);
-            slice.setRadius(5.0f);
-            slice.showLeftTopRect(true);
-            slice.showRightTopRect(true);
-        }
     }
 }

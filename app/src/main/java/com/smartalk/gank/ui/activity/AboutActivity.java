@@ -1,10 +1,8 @@
 package com.smartalk.gank.ui.activity;
 
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.smartalk.gank.BuildConfig;
@@ -22,18 +20,8 @@ public class AboutActivity extends ToolBarActivity<AboutPresenter> implements IB
 
     @Bind(R.id.toolbar_layout)
     CollapsingToolbarLayout toolbarLayout;
-    @Bind(R.id.fab)
-    FloatingActionButton fab;
     @Bind(R.id.tv_app_version)
     TextView tvAppVersion;
-    @Bind(R.id.rl_introduce)
-    RelativeLayout rlIntroduce;
-    @Bind(R.id.rl_developer)
-    RelativeLayout rlDeveloper;
-    @Bind(R.id.rl_open_source)
-    RelativeLayout rlOpenSource;
-    @Bind(R.id.rl_thanks)
-    RelativeLayout rlThanks;
 
     @OnClick(R.id.fab)
     void fabClick(){
@@ -55,10 +43,6 @@ public class AboutActivity extends ToolBarActivity<AboutPresenter> implements IB
     public void init() {
         toolbarLayout.setTitle(getString(R.string.about_app));
         tvAppVersion.setText(String.format(getString(R.string.version), BuildConfig.VERSION_NAME));
-        presenter.clipViewToCornerCard(rlIntroduce);
-        presenter.clipViewToCornerCard(rlDeveloper);
-        presenter.clipViewToCornerCard(rlOpenSource);
-        presenter.clipViewToCornerCard(rlThanks);
     }
 
     @Override

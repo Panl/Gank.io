@@ -22,7 +22,8 @@
         <RelativeLayout
             android:id="@+id/rl_introduce"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -53,7 +54,8 @@
         <RelativeLayout
             android:id="@+id/rl_developer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card">
 
             <ImageView
                 android:id="@+id/iv_avatar"
@@ -102,7 +104,8 @@
         <RelativeLayout
             android:id="@+id/rl_thanks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card">
 
             <TextView
                 android:layout_width="match_parent"
@@ -134,7 +137,8 @@
             android:id="@+id/rl_open_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_card">
 
             <TextView
                 android:layout_width="wrap_content"

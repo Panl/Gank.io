@@ -11,7 +11,7 @@ import com.smartalk.gank.ui.fragment.BatteryFragment;
  */
 public class BatteryPagerAdapter extends FragmentStatePagerAdapter {
 
-    String[] title = {"Android","iOS","前端","瞎推荐","拓展资源"};
+    String[] title = {"Android","iOS","前端","瞎推荐","拓展资源","App"};
 
     public BatteryPagerAdapter(FragmentManager fm) {
         super(fm);

@@ -43,7 +43,6 @@ public class BatteryActivity extends ToolBarActivity<BatteryPresenter> implement
         container.setOffscreenPageLimit(4);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setupWithViewPager(container);
-        tabLayout.setTabsFromPagerAdapter(pagerAdapter);
     }
 
     @Override

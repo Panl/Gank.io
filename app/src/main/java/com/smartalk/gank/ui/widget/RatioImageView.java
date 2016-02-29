@@ -9,16 +9,16 @@ import android.widget.ImageView;
  * 以Width为边长
  * Created by panl on 16/1/4.
  */
-public class SquareImageView extends ImageView {
-    public SquareImageView(Context context) {
+public class RatioImageView extends ImageView {
+    public RatioImageView(Context context) {
         super(context);
     }
 
-    public SquareImageView(Context context, AttributeSet attrs) {
+    public RatioImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RatioImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -30,6 +30,6 @@ public class SquareImageView extends ImageView {
         if (widthMode == MeasureSpec.AT_MOST) {
             length = Math.max(100, length);
         }
-        setMeasuredDimension(length, length);
+        setMeasuredDimension(length, length*4/5);
     }
 }
