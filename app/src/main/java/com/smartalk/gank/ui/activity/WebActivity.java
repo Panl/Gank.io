@@ -123,10 +123,10 @@ public class WebActivity extends ToolBarActivity<WebViewPresenter> implements IW
                 presenter.refresh(webView);
                 break;
             case R.id.action_copy_url:
-                presenter.copyUrl(gank.url);
+                presenter.copyUrl(webView.getUrl());
                 break;
             case R.id.action_open_in_browser:
-                presenter.openInBrowser(gank.url);
+                presenter.openInBrowser(webView.getUrl());
                 break;
             case R.id.action_share_gank:
                 presenter.moreOperation(gank);
