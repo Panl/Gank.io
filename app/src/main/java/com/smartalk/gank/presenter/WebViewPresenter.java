@@ -45,7 +45,7 @@ public class WebViewPresenter extends BasePresenter<IWebView> {
     }
 
     public void copyUrl(String text) {
-        AndroidUtil.copyToClipBoard(context, text, context.getString(R.string.copy_success));
+        AndroidUtil.copyToClipBoard(context.getApplicationContext(), text, context.getString(R.string.copy_success));
     }
 
     public void openInBrowser(String url) {

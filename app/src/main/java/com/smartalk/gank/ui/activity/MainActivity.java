@@ -89,7 +89,7 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
 
     @Override
     public void init() {
-        meizis = SPDataUtil.getFirstPageGirls(this);
+        meizis = SPDataUtil.getFirstPageGirls(getApplicationContext());
         if (meizis == null) meizis = new ArrayList<>();
         adapter = new MeiziAdapter(this, meizis);
         rvMeizi.setLayoutManager(new LinearLayoutManager(this));
@@ -147,7 +147,7 @@ public class MainActivity extends ToolBarActivity<MainPresenter> implements
         canLoading = true;
         page++;
         if (isRefresh) {
-            SPDataUtil.saveFirstPageGirls(this, meiziList);
+            SPDataUtil.saveFirstPageGirls(getApplicationContext(), meiziList);
             meizis.clear();
             meizis.addAll(meiziList);
             adapter.notifyDataSetChanged();

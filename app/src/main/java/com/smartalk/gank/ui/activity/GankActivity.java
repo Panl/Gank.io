@@ -56,7 +56,7 @@ public class GankActivity extends ToolBarActivity<GankPresenter> implements IGan
 
     @OnClick(R.id.fab)
     void fabClick() {
-        if (!AndroidUtil.isWIFIConnected(this)) {
+        if (!AndroidUtil.isWIFIConnected(getApplicationContext())) {
             TipsUtil.showTipWithAction(fab, "你使用的不是wifi网络，要继续吗？", "继续", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

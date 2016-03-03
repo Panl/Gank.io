@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 
 import com.smartalk.gank.R;
 import com.smartalk.gank.utils.FileUtil;
@@ -68,6 +69,7 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
             public void call(Subscriber<? super Uri> subscriber) {
                 Uri uri = FileUtil.saveBitmapToSDCard(bitmap, title);
                 if (uri == null) {
+                    Log.d("log","uri is null");
                     subscriber.onError(new Exception(context.getString(R.string.girl_reject_your_request)));
                 } else {
                     subscriber.onNext(uri);
@@ -84,7 +86,8 @@ public class MeizhiPresenter extends BasePresenter<IMeizhiView> {
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        iView.showSaveGirlResult(context.getString(R.string.girl_reject_your_request));
+                        Log.d("log","some thing is wrong");
+                        iView.showSaveGirlResult(throwable.getMessage());
                     }
                 });
     }
