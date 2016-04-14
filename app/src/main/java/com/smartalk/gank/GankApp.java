@@ -7,6 +7,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 /**
+ * 蜗壳退役+面试成功 加个彩蛋！
  * Created by panl on 16/1/4.
  */
 public class GankApp extends Application {
