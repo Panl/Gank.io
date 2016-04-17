@@ -12,7 +12,7 @@ import retrofit.RxJavaCallAdapterFactory;
  * Created by panl on 15/12/20.
  */
 public class PanClient {
-    public static final String HOST = "http://gank.avosapps.com/api/";
+    public static final String HOST = "http://gank.io/api/";
     private static GankRetrofit gankRetrofit;
     protected static final Object monitor = new Object();
 
