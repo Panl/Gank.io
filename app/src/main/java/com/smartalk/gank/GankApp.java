@@ -26,6 +26,6 @@ public class GankApp extends Application {
         super.onCreate();
         refWatcher = LeakCanary.install(this);
         Log.d(this.getClass().getSimpleName(),"Welcome to follow me on Github: https://github.com/Panl");
-        
+
     }
 }

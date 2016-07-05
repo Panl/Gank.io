@@ -65,10 +65,8 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
                 .crossFade()
                 .into(holder.ivMeizi);
         holder.tvWho.setText(meizi.who);
-        holder.tvAvatar.setText(meizi.who.substring(0, 1).toUpperCase());
         holder.tvDesc.setText(meizi.desc);
         holder.tvTime.setText(DateUtil.toDateTimeStr(meizi.publishedAt));
-        holder.tvAvatar.setVisibility(View.GONE);
         showItemAnimation(holder, position);
     }
 
@@ -93,8 +91,6 @@ public class MeiziAdapter extends RecyclerView.Adapter<MeiziAdapter.MeiziHolder>
         ImageView ivMeizi;
         @Bind(R.id.tv_who)
         TextView tvWho;
-        @Bind(R.id.tv_avatar)
-        TextView tvAvatar;
         @Bind(R.id.tv_desc)
         TextView tvDesc;
         @Bind(R.id.tv_time)
