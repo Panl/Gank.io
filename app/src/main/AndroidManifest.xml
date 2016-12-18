@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.smartalk.gank">
+          package="com.smartalk.gank">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -48,14 +48,6 @@
 
         <activity android:name=".ui.activity.AboutActivity"
             android:screenOrientation="portrait"/>
-
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="@string/umeng_key"/>
-
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 
 </manifest>
