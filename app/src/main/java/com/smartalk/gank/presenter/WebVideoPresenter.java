@@ -12,43 +12,42 @@ import com.smartalk.gank.view.IWebVideo;
  */
 public class WebVideoPresenter extends BasePresenter<IWebVideo> {
 
-    public WebVideoPresenter(Context context, IWebVideo iView) {
-        super(context, iView);
-    }
+  public WebVideoPresenter(Context context, IWebVideo iView) {
+    super(context, iView);
+  }
 
-    public void loadWebVideo(WebView webView, String url){
-        webView.setWebChromeClient(new Chrome());
-        webView.loadUrl(url);
-    }
+  public void loadWebVideo(WebView webView, String url) {
+    webView.setWebChromeClient(new Chrome());
+    webView.loadUrl(url);
+  }
 
-    private class Chrome extends WebChromeClient
-            implements MediaPlayer.OnCompletionListener {
+  private class Chrome extends WebChromeClient
+      implements MediaPlayer.OnCompletionListener {
 
-        @Override
-        public void onCompletion(MediaPlayer player) {
-            if (player != null) {
-                if (player.isPlaying()) player.stop();
-                player.reset();
-                player.release();
-                player = null;
-            }
-        }
-
-        @Override
-        public void onProgressChanged(WebView view, int newProgress) {
-            super.onProgressChanged(view, newProgress);
-            iView.showProgressBar(newProgress);
-        }
-
-        @Override
-        public void onReceivedTitle(WebView view, String title) {
-            super.onReceivedTitle(view, title);
-            iView.setWebTitle(title);
-        }
+    @Override
+    public void onCompletion(MediaPlayer player) {
+      if (player != null) {
+        if (player.isPlaying()) player.stop();
+        player.reset();
+        player.release();
+      }
     }
 
     @Override
-    public void release() {
-
+    public void onProgressChanged(WebView view, int newProgress) {
+      super.onProgressChanged(view, newProgress);
+      iView.showProgressBar(newProgress);
     }
+
+    @Override
+    public void onReceivedTitle(WebView view, String title) {
+      super.onReceivedTitle(view, title);
+      iView.setWebTitle(title);
+    }
+  }
+
+  @Override
+  public void release() {
+
+  }
 }

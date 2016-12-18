@@ -17,29 +17,29 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
-    protected T presenter;
+  protected T presenter;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(provideViewLayoutId(),container,false);
-        ButterKnife.bind(this,view);
-        initPresenter();
-        return view;
-    }
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    View view = inflater.inflate(provideViewLayoutId(), container, false);
+    ButterKnife.bind(this, view);
+    initPresenter();
+    return view;
+  }
 
-    protected abstract int provideViewLayoutId();
+  protected abstract int provideViewLayoutId();
 
-    protected abstract void initPresenter();
+  protected abstract void initPresenter();
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
+  @Override
+  public void onDestroyView() {
+    super.onDestroyView();
+    ButterKnife.unbind(this);
+  }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        GankApp.getRefWatcher(getActivity()).watch(this);
-    }
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    GankApp.getRefWatcher(getActivity()).watch(this);
+  }
 }

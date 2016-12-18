@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
-def releaseTime(){
-    return new Date().format("yyyy-MM-dd",TimeZone.getTimeZone("UTC"))
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
 Properties properties = new Properties()

@@ -12,21 +12,21 @@ import com.smartalk.gank.view.IBaseView;
  */
 public class AboutPresenter extends BasePresenter<IBaseView> {
 
-    public AboutPresenter(Context context, IBaseView iView) {
-        super(context, iView);
-    }
+  public AboutPresenter(Context context, IBaseView iView) {
+    super(context, iView);
+  }
 
 
-    public void starInMarket() {
-        Uri uri = Uri.parse(String.format(context.getString(R.string.market), context.getPackageName()));
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (intent.resolveActivity(context.getPackageManager()) != null)
-            context.startActivity(intent);
-    }
+  public void starInMarket() {
+    Uri uri = Uri.parse(String.format(context.getString(R.string.market), context.getPackageName()));
+    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    if (intent.resolveActivity(context.getPackageManager()) != null)
+      context.startActivity(intent);
+  }
 
-    @Override
-    public void release() {
+  @Override
+  public void release() {
 
-    }
+  }
 }

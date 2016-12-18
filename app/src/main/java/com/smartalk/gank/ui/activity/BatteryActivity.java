@@ -12,42 +12,42 @@ import com.smartalk.gank.view.IBaseView;
 
 import butterknife.Bind;
 
-public class BatteryActivity extends ToolBarActivity<BatteryPresenter> implements IBaseView{
+public class BatteryActivity extends ToolBarActivity<BatteryPresenter> implements IBaseView {
 
-    @Bind(R.id.tab_layout)
-    TabLayout tabLayout;
-    @Bind(R.id.container)
-    ViewPager container;
+  @Bind(R.id.tab_layout)
+  TabLayout tabLayout;
+  @Bind(R.id.container)
+  ViewPager container;
 
-    @Override
-    protected int provideContentViewId() {
-        return R.layout.activity_battery;
-    }
+  @Override
+  protected int provideContentViewId() {
+    return R.layout.activity_battery;
+  }
 
-    @Override
-    protected void initPresenter() {
-        presenter = new BatteryPresenter(this,this);
-        presenter.init();
-    }
+  @Override
+  protected void initPresenter() {
+    presenter = new BatteryPresenter(this, this);
+    presenter.init();
+  }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
 
-        return super.onOptionsItemSelected(item);
-    }
+    return super.onOptionsItemSelected(item);
+  }
 
-    @Override
-    public void init() {
-        BatteryPagerAdapter pagerAdapter = new BatteryPagerAdapter(getSupportFragmentManager());
-        container.setAdapter(pagerAdapter);
-        container.setOffscreenPageLimit(4);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabLayout.setupWithViewPager(container);
-    }
+  @Override
+  public void init() {
+    BatteryPagerAdapter pagerAdapter = new BatteryPagerAdapter(getSupportFragmentManager());
+    container.setAdapter(pagerAdapter);
+    container.setOffscreenPageLimit(4);
+    tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+    tabLayout.setupWithViewPager(container);
+  }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.release();
-    }
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    presenter.release();
+  }
 }

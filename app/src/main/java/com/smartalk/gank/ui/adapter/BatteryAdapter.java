@@ -24,44 +24,45 @@ import butterknife.OnClick;
  */
 public class BatteryAdapter extends RecyclerView.Adapter<BatteryAdapter.BatteryHolder> {
 
-    List<Gank> gankList;
-    Context context;
+  List<Gank> gankList;
+  Context context;
 
-    public BatteryAdapter(List<Gank> gankList, Context context) {
-        this.gankList = gankList;
-        this.context = context;
+  public BatteryAdapter(List<Gank> gankList, Context context) {
+    this.gankList = gankList;
+    this.context = context;
+  }
+
+  @Override
+  public BatteryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_battery, parent, false);
+    return new BatteryHolder(view);
+  }
+
+  @Override
+  public void onBindViewHolder(BatteryHolder holder, int position) {
+    Gank gank = gankList.get(position);
+    holder.tvBattery.setTag(gank);
+    holder.tvBattery.setText(StringStyleUtil.getGankStyleStr(gank));
+  }
+
+  @Override
+  public int getItemCount() {
+    return gankList.size();
+  }
+
+  class BatteryHolder extends RecyclerView.ViewHolder {
+
+    @Bind(R.id.tv_battery)
+    TextView tvBattery;
+
+    @OnClick(R.id.ll_battery)
+    void toWebClick() {
+      WebActivity.loadWebViewActivity(context, (Gank) tvBattery.getTag());
     }
 
-    @Override
-    public BatteryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_battery, parent, false);
-        return new BatteryHolder(view);
+    public BatteryHolder(View itemView) {
+      super(itemView);
+      ButterKnife.bind(this, itemView);
     }
-
-    @Override
-    public void onBindViewHolder(BatteryHolder holder, int position) {
-        Gank gank = gankList.get(position);
-        holder.tvBattery.setTag(gank);
-        holder.tvBattery.setText(StringStyleUtil.getGankStyleStr(gank));
-    }
-
-    @Override
-    public int getItemCount() {
-        return gankList.size();
-    }
-
-    class BatteryHolder extends RecyclerView.ViewHolder {
-
-        @Bind(R.id.tv_battery)
-        TextView tvBattery;
-        @OnClick(R.id.ll_battery)
-        void toWebClick(){
-            WebActivity.loadWebViewActivity(context,(Gank)tvBattery.getTag());
-        }
-
-        public BatteryHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
-        }
-    }
+  }
 }

@@ -16,76 +16,76 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
-    protected String TAG = this.getClass().getSimpleName();
-    protected T presenter;
+  protected String TAG = this.getClass().getSimpleName();
+  protected T presenter;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(provideContentViewId());
-        ButterKnife.bind(this);
-        initPresenter();
-        Log.i(TAG,"onCreate");
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(provideContentViewId());
+    ButterKnife.bind(this);
+    initPresenter();
+    Log.i(TAG, "onCreate");
+  }
+
+  protected abstract int provideContentViewId();
+
+  protected abstract void initPresenter();
+
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home:
+        onBackPressed();
+        break;
     }
+    return super.onOptionsItemSelected(item);
+  }
 
-    protected abstract int provideContentViewId();
+  @Override
+  protected void onRestart() {
+    super.onRestart();
+    Log.i(TAG, "onRestart");
 
-    protected abstract void initPresenter();
+  }
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    Log.i(TAG, "onStart");
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+  }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(TAG,"onRestart");
+  @Override
+  protected void onResume() {
+    super.onResume();
+    MobclickAgent.onResume(this);
+    Log.i(TAG, "onResume");
 
-    }
+  }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG,"onStart");
+  @Override
+  protected void onPause() {
+    super.onPause();
+    MobclickAgent.onPause(this);
+    Log.i(TAG, "onPause");
 
-    }
+  }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-        Log.i(TAG,"onResume");
+  @Override
+  protected void onStop() {
+    super.onStop();
+    Log.i(TAG, "onStop");
 
-    }
+  }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
-        Log.i(TAG,"onPause");
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    ButterKnife.unbind(this);
+    Log.i(TAG, "onDestroy");
 
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG,"onStop");
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-        Log.i(TAG,"onDestroy");
-
-    }
+  }
 }

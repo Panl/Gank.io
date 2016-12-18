@@ -15,18 +15,18 @@ import rx.Observable;
  * Created by panl on 15/12/20.
  */
 public interface GankRetrofit {
-    @GET("data/福利/" + PanConfig.MEIZI_SIZE + "/{page}")
-    Observable<MeiziData> getMeiziData(@Path("page") int page);
+  @GET("data/福利/" + PanConfig.MEIZI_SIZE + "/{page}")
+  Observable<MeiziData> getMeiziData(@Path("page") int page);
 
-    @GET("data/休息视频/" + PanConfig.MEIZI_SIZE + "/{page}")
-    Observable<休息视频Data> get休息视频Data(@Path("page") int page);
+  @GET("data/休息视频/" + PanConfig.MEIZI_SIZE + "/{page}")
+  Observable<休息视频Data> get休息视频Data(@Path("page") int page);
 
-    @GET("day/{year}/{month}/{day}")
-    Observable<GankData> getDailyData(
-            @Path("year") int year,
-            @Path("month") int month,
-            @Path("day") int day);
+  @GET("day/{year}/{month}/{day}")
+  Observable<GankData> getDailyData(
+      @Path("year") int year,
+      @Path("month") int month,
+      @Path("day") int day);
 
-    @GET("data/{type}/"+PanConfig.GANK_SIZE+"/{page}")
-    Observable<BatteryData> getBatteryData(@Path("type") String type,@Path("page") int page);
+  @GET("data/{type}/" + PanConfig.GANK_SIZE + "/{page}")
+  Observable<BatteryData> getBatteryData(@Path("type") String type, @Path("page") int page);
 }

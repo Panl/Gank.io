@@ -16,37 +16,37 @@ import butterknife.Bind;
  * Created by panl on 16/1/5.
  */
 public abstract class ToolBarActivity<T extends BasePresenter> extends BaseActivity {
-    protected ActionBar actionBar;
-    protected T presenter;
-    protected boolean isToolBarHiding = false;
+  protected ActionBar actionBar;
+  protected T presenter;
+  protected boolean isToolBarHiding = false;
 
-    @Bind(R.id.toolbar)
-    protected Toolbar toolbar;
-    @Bind(R.id.app_bar)
-    protected AppBarLayout appBar;
+  @Bind(R.id.toolbar)
+  protected Toolbar toolbar;
+  @Bind(R.id.app_bar)
+  protected AppBarLayout appBar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initToolBar();
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    initToolBar();
+  }
 
-    protected boolean canBack(){
-        return true;
-    }
+  protected boolean canBack() {
+    return true;
+  }
 
-    protected void initToolBar(){
-        setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(canBack());
+  protected void initToolBar() {
+    setSupportActionBar(toolbar);
+    actionBar = getSupportActionBar();
+    if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(canBack());
 
-    }
+  }
 
-    protected void hideOrShowToolBar() {
-        appBar.animate()
-                .translationY(isToolBarHiding ? 0 : -appBar.getHeight())
-                .setInterpolator(new DecelerateInterpolator(2))
-                .start();
-        isToolBarHiding = !isToolBarHiding;
-    }
+  protected void hideOrShowToolBar() {
+    appBar.animate()
+        .translationY(isToolBarHiding ? 0 : -appBar.getHeight())
+        .setInterpolator(new DecelerateInterpolator(2))
+        .start();
+    isToolBarHiding = !isToolBarHiding;
+  }
 }

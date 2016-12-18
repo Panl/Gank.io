@@ -7,6 +7,6 @@ import java.io.Serializable;
  * Created by panl on 15/12/20.
  */
 public class Fundation implements Serializable {
-    public long id;
-    public String objectId;
+  public long id;
+  public String objectId;
 }

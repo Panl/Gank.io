@@ -5,5 +5,5 @@ package com.smartalk.gank.view;
  * Created by panl on 15/12/24.
  */
 public interface IBaseView {
-    void init();
+  void init();
 }

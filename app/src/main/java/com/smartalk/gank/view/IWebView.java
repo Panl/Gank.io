@@ -6,10 +6,10 @@ package com.smartalk.gank.view;
  */
 public interface IWebView extends IBaseView {
 
-    void showProgressBar(int progress);
+  void showProgressBar(int progress);
 
-    void setWebTitle(String title);
+  void setWebTitle(String title);
 
-    void openFailed();
+  void openFailed();
 
 }

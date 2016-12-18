@@ -9,9 +9,13 @@ import java.util.List;
  * Created by panl on 16/1/5.
  */
 public interface IBatteryView extends IBaseView {
-    void showProgressBar();
-    void hideProgressBar();
-    void showErrorView();
-    void showNoMoreData();
-    void showListView(List<Gank> gankList);
+  void showProgressBar();
+
+  void hideProgressBar();
+
+  void showErrorView();
+
+  void showNoMoreData();
+
+  void showListView(List<Gank> gankList);
 }
